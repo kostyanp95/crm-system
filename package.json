@@ -1,0 +1,31 @@
+{
+  "name": "crm-system",
+  "version": "1.0.0",
+  "description": "crm system development with MEAN stack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "server": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kostyanp95/crm-system.git"
+  },
+  "keywords": [
+    "MongoDB",
+    "Express",
+    "Angular",
+    "Node"
+  ],
+  "author": "Kostyanp95",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kostyanp95/crm-system/issues"
+  },
+  "homepage": "https://github.com/kostyanp95/crm-system#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.5",
+    "yarn": "^1.22.10"
+  }
+}
