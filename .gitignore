@@ -49,4 +49,4 @@ testem.log
 Thumbs.db
 
 # Keys for connection with mongoDV
-/config
+/config/
