@@ -22,7 +22,7 @@ module.exports.login = async function (req, res) {
                 userId: candidate._id
             }, keys.jwt, { expiresIn: 3600 })
             res.status(200).json({
-                token: token
+                token: `Bearer ${token}`
             })
         } else {
             // Пароли не совпали
