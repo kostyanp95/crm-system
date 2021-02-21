@@ -1,18 +1,23 @@
 const express = require('express')
 const morgan = require("morgan")
 const cors = require("cors");
+const passport = require('passport')
 const mongoose = require('mongoose')
+const app = express()
+
 const keys = require('./config/keys')
 const authRoutes = require('./routes/auth')
 const analyticsRoutes = require('./routes/analytics')
 const categoryRoutes = require('./routes/category')
 const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
-const app = express()
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true })
     .then(() => console.log('MongoDB connected!'))
     .catch(error => console.log(error))
+
+app.use(passport.initialize())
+require('./middleware/passport')(passport)
 
 app.use(morgan('dev'))
 app.use(express.json({ extended: true }))
