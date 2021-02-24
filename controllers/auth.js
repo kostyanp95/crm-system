@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 
 const keys = require('../config/keys')
 const User = require('../models/User')
+const errorHandler = require('../utils/errorHandler')
 
 /**
  * Login
@@ -69,7 +70,7 @@ module.exports.register = async function (req, res) {
             res.status(201).json(user)
         } catch (e) {
             // обрабатываем ошибку
-
+            errorHandler(res, e)
         }
 
     }
