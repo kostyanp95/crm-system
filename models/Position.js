@@ -1,4 +1,5 @@
-const  mongoose = require('mongoose')
+const mongoose = require('mongoose')
+
 const Schema = mongoose.Schema
 
 const positionSchema = new Schema({
@@ -18,7 +19,6 @@ const positionSchema = new Schema({
         ref: 'users',
         type: Schema.Types.ObjectId
     }
-
 })
 
 module.exports = mongoose.model('positions', positionSchema)
