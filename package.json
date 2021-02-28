@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "server": "nodemon index"
+    "server": "nodemon index",
+    "client-install": "npm i --prefix client",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -37,6 +40,7 @@
     "yarn": "^1.22.10"
   },
   "devDependencies": {
+    "concurrently": "^6.0.0",
     "nodemon": "^2.0.7"
   }
 }
