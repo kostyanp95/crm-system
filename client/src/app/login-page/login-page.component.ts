@@ -16,7 +16,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   form: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(7)]]
-  });
+  })
   subscription: Subscription
 
   constructor(private fb: FormBuilder,
