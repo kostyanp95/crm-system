@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { AuthService } from "../shared/services/auth.service";
 import { User } from "../shared/models/interfaces";
 import { ActivatedRoute, Params, Router } from "@angular/router";
+import { MaterializeToastsService } from "../shared/services/materialize-toasts.service";
 
 @Component({
   selector: 'app-login-page',
@@ -29,9 +30,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams
       .subscribe((params: Params) => {
         if (params['registered']) {
-          // you can login
+          MaterializeToastsService.toast('Теперь вы можете войти в систему, используя свои данные.')
         } else if (params['accessDenied']) {
-          // nee auth
+          MaterializeToastsService.toast('Авторизуйтесь в системе.')
         }
       })
   }
@@ -43,7 +44,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       .subscribe(
         () => this.router.navigate(['/overview']),
         error => {
-          console.log(error)
+          MaterializeToastsService.toast(error.error.message)
           this.form.enable()
         }
       )
