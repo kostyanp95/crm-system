@@ -42,7 +42,7 @@ export class AuthService {
     localStorage.clear()
   }
 
-  private setToken(token: string): void {
+  setToken(token: string): void {
     this.token = token
   }
 
