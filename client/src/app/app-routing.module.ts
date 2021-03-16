@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthLayoutComponent } from "./shared/layouts/auth-layout/auth-layout.component";
-import { SiteLayoutComponent } from "./shared/layouts/site-layout/site-layout.component";
-import { LoginPageComponent } from "./login-page/login-page.component";
-import { RegisterPageComponent } from "./register-page/register-page.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+
+import {AuthLayoutComponent} from "./shared/layouts/auth-layout/auth-layout.component";
+import {SiteLayoutComponent} from "./shared/layouts/site-layout/site-layout.component";
+import {LoginPageComponent} from "./login-page/login-page.component";
+import {RegisterPageComponent} from "./register-page/register-page.component";
 import { AuthGuard } from "./shared/guards/auth.guard";
 import { OverviewPageComponent } from "./overview-page/overview-page.component";
 
