@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     if (this.authService.isAuthenticated()) {
-      of(true)
+      return of(true)
     } else {
       this.router.navigate(['/login'], {
         queryParams: {
@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.canActivate(route, state);
+    return this.canActivate(route, state)
   }
 
 }
