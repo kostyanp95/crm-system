@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 
 import { AuthService } from "../shared/services/auth.service";
 import { User } from "../shared/models/interfaces";
-import { MaterializeToastsService } from "../shared/services/materialize-toasts.service";
+import { MaterializeService } from "../shared/services/materialize.service";
 
 @Component({
   selector: 'app-register-page',
@@ -39,7 +39,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
           }
         }),
         error => {
-          MaterializeToastsService.toast(error.error.message)
+          MaterializeService.toast(error.error.message)
           this.form.enable()
         })
   }
