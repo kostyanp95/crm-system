@@ -8,10 +8,10 @@ import { Observable } from "rxjs";
 })
 export class CategoriesService {
 
-  constructor(private htpp: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   fetch(): Observable<Array<Category>> {
-    return this.htpp.get<Array<Category>>('/api/category')
+    return this.http.get<Array<Category>>('/api/category')
   }
 }
