@@ -11,4 +11,8 @@ export class MaterializeService {
   static initFloatButton(elementRef: ElementRef) {
     M.FloatingActionButton.init(elementRef.nativeElement)
   }
+
+  static updateTextFields(): void {
+    M.updateTextFields()
+  }
 }
