@@ -32,7 +32,12 @@
     </div>
 
     <div>
-      <button class="waves-effect waves-light btn orange lighten-2 mb2" type="button">
+      <input type="file" style="display: none"
+             #inputFile
+             (change)="onFileUpload($event)">
+      <button class="waves-effect waves-light btn orange lighten-2 mb2" type="button"
+              (click)="uploadFile()"
+              [disabled]="form.invalid || form.disabled">
         <i class="material-icons left">backup</i>
         Загрузить изображение
       </button>
@@ -47,7 +52,9 @@
   </form>
 
   <div class="col s12 l4 center">
-    <img class="responsive-img" style="height: 200px" src="cake.jpg">
+    <img class="responsive-img" style="height: 200px"
+         *ngIf="categoryImagePreview"
+         [src]="categoryImagePreview">
   </div>
 </div>
 
