@@ -14,4 +14,8 @@ export class CategoriesService {
   fetch(): Observable<Array<Category>> {
     return this.http.get<Array<Category>>('/api/category')
   }
+
+  geById(id: string): Observable<Category> {
+    return this.http.get<Category>(`/api/category/${id}`)
+  }
 }
