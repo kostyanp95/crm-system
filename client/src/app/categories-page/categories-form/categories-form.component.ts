@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CategoriesService } from "../../shared/services/categories.service";
 import { switchMap } from "rxjs/operators";
-import { of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { MaterializeService } from "../../shared/services/materialize.service";
+import { Category } from "../../shared/models/category.model";
 
 @Component({
   selector: 'app-categories-form',
@@ -14,14 +15,18 @@ import { MaterializeService } from "../../shared/services/materialize.service";
 })
 export class CategoriesFormComponent implements OnInit {
 
-  form: FormGroup = this.fb.group({
-    name: [null, [Validators.required]]
-  })
+  @ViewChild('inputFile') uploadFileRef: ElementRef
+
+  form: FormGroup
   isNew: boolean = true
+  category: Category
+  categoryImage: File
+  categoryImagePreview: string | ArrayBuffer | null
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
-              private categoriesService: CategoriesService) {
+              private categoriesService: CategoriesService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -34,6 +39,8 @@ export class CategoriesFormComponent implements OnInit {
     //       // Create form
     //     }
     //   })
+
+    this.formInit()
 
     this.form.disable()
 
@@ -49,20 +56,72 @@ export class CategoriesFormComponent implements OnInit {
           }
         )
       )
-      .subscribe(category => {
+      .subscribe((category: Category) => {
           if (category) {
+            this.category = category
             this.form.patchValue({
               name: category.name
             })
+            this.categoryImagePreview = category.imageSrc
+            this.cdr.markForCheck()
             MaterializeService.updateTextFields()
           }
-          this.form.enable()
         },
         error => MaterializeService.toast(error.error.message)
       )
+
+    this.form.enable()
+  }
+
+  formInit(): void {
+    this.form = this.fb.group({
+      name: [null, [Validators.required]]
+    })
+    console.log(this.form.getRawValue())
+  }
+
+  uploadFile(): void {
+    this.uploadFileRef.nativeElement.click()
+  }
+
+  onFileUpload(event: Event): void {
+    this.categoryImage = event.target['files'][0]
+
+    const reader = new FileReader()
+
+    reader.onload = () => {
+      this.categoryImagePreview = reader.result
+      this.cdr.markForCheck()
+    }
+
+    reader.readAsDataURL(this.categoryImage)
   }
 
   onSubmit(): void {
+    let observable$: Observable<Category>
 
+    this.form.disable()
+    const name = this.form.get('name').value
+
+    if (this.isNew) {
+      observable$ = this.categoriesService.create(name, this.categoryImage)
+    } else {
+      observable$ = this.categoriesService.update(this.category._id, name, this.categoryImage)
+    }
+
+    observable$
+      .subscribe(
+        category => {
+          this.category = category
+          MaterializeService.toast('Изменения сохранены.')
+          this.form.enable()
+          this.cdr.markForCheck()
+        },
+        error => {
+          MaterializeService.toast(error.error.message)
+          this.form.enable()
+          this.cdr.markForCheck()
+        }
+      )
   }
 }

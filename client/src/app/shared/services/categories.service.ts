@@ -18,4 +18,22 @@ export class CategoriesService {
   geById(id: string): Observable<Category> {
     return this.http.get<Category>(`/api/category/${id}`)
   }
+
+  create(name: string, image?: File): Observable<Category> {
+    const formData = new FormData()
+
+    image ? formData.append('image', image, image.name) : null
+    formData.append('name', name)
+
+    return this.http.post<Category>('/api/category/', formData)
+  }
+
+  update(id: string, name: string, image?: File): Observable<Category> {
+    const formData = new FormData()
+
+    image ? formData.append('image', image, image.name) : null
+    formData.append('name', name)
+
+    return this.http.patch<Category>(`/api/category/${id}`, formData)
+  }
 }
