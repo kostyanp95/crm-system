@@ -43,23 +43,20 @@ export class CategoriesFormComponent implements OnInit {
           (params: Params) => {
             if (params['id']) {
               this.isNew = false
-              console.log(params['id'])
-              console.log(params['name'])
               return this.categoriesService.geById(params['id'])
             }
             return of(null)
           }
         )
       )
-      .subscribe(
-        category => {
+      .subscribe(category => {
           if (category) {
             this.form.patchValue({
               name: category.name
             })
             MaterializeService.updateTextFields()
-            this.form.enable()
           }
+          this.form.enable()
         },
         error => MaterializeService.toast(error.error.message)
       )
