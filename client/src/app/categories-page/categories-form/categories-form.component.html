@@ -7,7 +7,9 @@
     {{ isNew ? 'Добавить' : 'Создать' }} категорию
   </h4>
   <span>
-    <button class="btn btn-small red">
+    <button class="btn btn-small red"
+            (click)="deleteCategory()"
+            *ngIf="!isNew">
       <i class="material-icons">delete</i>
     </button>
   </span>
