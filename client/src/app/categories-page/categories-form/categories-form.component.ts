@@ -79,7 +79,6 @@ export class CategoriesFormComponent implements OnInit {
     this.form = this.fb.group({
       name: [null, [Validators.required]]
     })
-    console.log(this.form.getRawValue())
   }
 
   uploadFile(): void {

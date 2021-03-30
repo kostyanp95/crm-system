@@ -24,16 +24,20 @@ export class CategoriesService {
   create(name: string, image?: File): Observable<Category> {
     const formData = new FormData()
 
-    image ? formData.append('image', image, image.name) : null
+    if (image) {
+      formData.append('image', image, image.name)
+    }
     formData.append('name', name)
 
-    return this.http.post<Category>('/api/category/', formData)
+    return this.http.post<Category>('/api/category', formData)
   }
 
   update(id: string, name: string, image?: File): Observable<Category> {
     const formData = new FormData()
 
-    image ? formData.append('image', image, image.name) : null
+    if (image) {
+      formData.append('image', image, image.name)
+    }
     formData.append('name', name)
 
     return this.http.patch<Category>(`/api/category/${id}`, formData)
