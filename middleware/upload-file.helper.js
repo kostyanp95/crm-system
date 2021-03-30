@@ -20,7 +20,7 @@ const fileFilter = (req, file, cb) => {
 }
 
 const limits = {
-    fileSIze: 1024 * 1024 * 5
+    fileSIze: 1024 * 1024 * 15
 }
 
 module.exports = multer({
