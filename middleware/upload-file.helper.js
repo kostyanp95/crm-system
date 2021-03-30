@@ -28,6 +28,7 @@ const fileFilter = (req, file, cb) => {
         cb(null, true)
     } else {
         cb(null, false)
+        console.log('Unsupported img file format.')
     }
 }
 
