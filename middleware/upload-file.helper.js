@@ -11,8 +11,20 @@ const storage = multer.diskStorage({
     }
 })
 
+const imgMimeTypes = [
+    'image/gif',
+    'image/jpeg',
+    'image/pjpeg',
+    'image/svg+xml',
+    'image/tiff',
+    'image/jfif',
+    'image/vnd.microsoft.icon',
+    'image/vnd.wap.wbmp',
+    'image/webp'
+];
+
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
+    if (imgMimeTypes.includes(file.mimetype)) {
         cb(null, true)
     } else {
         cb(null, false)
@@ -25,6 +37,6 @@ const limits = {
 
 module.exports = multer({
     storage,
-    // fileFilter,
+    fileFilter,
     limits
 })
