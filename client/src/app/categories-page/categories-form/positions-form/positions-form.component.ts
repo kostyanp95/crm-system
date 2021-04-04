@@ -12,7 +12,7 @@ import {
 
 import { PositionService } from "../../../shared/services/position.service";
 import { Position } from "../../../shared/models/position.model";
-import { MaterializeService, ModalMaterialInstance } from "../../../shared/services/materialize.service";
+import { MaterializeService, MaterializeInstance } from "../../../shared/services/materialize.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -28,7 +28,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   positions: Array<Position> = []
   positionId = null
   loading: boolean = false
-  modal: ModalMaterialInstance
+  modal: MaterializeInstance
   form: FormGroup
 
   constructor(private positionService: PositionService,
