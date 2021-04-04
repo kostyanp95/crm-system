@@ -2,7 +2,7 @@ import { ElementRef } from "@angular/core";
 
 declare var M
 
-export interface ModalMaterialInstance {
+export interface MaterializeInstance {
   open?(): void
 
   close?(): void
