@@ -41,7 +41,7 @@
               (click)="uploadFile()"
               [disabled]="form.invalid || form.disabled">
         <i class="material-icons left">backup</i>
-        Загрузить изображение
+        {{ isNew ? 'Загрузить' : 'Изменить' }} изображение
       </button>
     </div>
 
