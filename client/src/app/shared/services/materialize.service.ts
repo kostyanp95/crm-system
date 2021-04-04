@@ -24,7 +24,7 @@ export class MaterializeService {
     M.updateTextFields()
   }
 
-  static initModal(modalRef: ElementRef): ModalMaterialInstance {
+  static initModal(modalRef: ElementRef): MaterializeInstance {
     return M.Modal.init(modalRef.nativeElement)
   }
 }
