@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { MaterializeInstance, MaterializeService } from "../shared/services/materialize.service";
 
 @Component({
   selector: 'app-history-page',
@@ -6,11 +15,23 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./history-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HistoryPageComponent implements OnInit {
+export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('tooltip') tooltipRef: ElementRef
+  tooltip: MaterializeInstance
+  isFilterVisible: boolean = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.tooltip = MaterializeService.initTooltip(this.tooltipRef)
+  }
+
+  ngOnDestroy(): void {
+    this.tooltip.destroy()
   }
 
 }
