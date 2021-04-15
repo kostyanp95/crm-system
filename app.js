@@ -1,6 +1,6 @@
 const express = require('express')
 const morgan = require("morgan")
-const cors = require("cors");
+const cors = require("cors")
 const passport = require('passport')
 const mongoose = require('mongoose')
 const app = express()
@@ -12,7 +12,11 @@ const categoryRoutes = require('./routes/category')
 const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
 
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true })
+mongoose.connect(keys.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+})
     .then(() => console.log('MongoDB connected!'))
     .catch(error => console.log(error))
 
@@ -21,7 +25,7 @@ require('./middleware/passport')(passport)
 
 app.use(morgan('dev'))
 app.use('/uploads', express.static('uploads'))
-app.use(express.json({ extended: true }))
+app.use(express.json({extended: true}))
 app.use(cors())
 
 app.use('/api/auth', authRoutes)
