@@ -9,11 +9,11 @@ import { AuthGuard } from "./shared/guards/auth.guard";
 import { OverviewPageComponent } from "./overview-page/overview-page.component";
 import { AnalyticsPageComponent } from "./analytics-page/analytics-page.component";
 import { HistoryPageComponent } from "./history-page/history-page.component";
-import { OrderPageComponent } from "./order-page/order-page.component";
+import { OrderPageComponent } from "./order-page/components/order-page.component";
 import { CategoriesPageComponent } from "./categories-page/categories-page.component";
 import { CategoriesFormComponent } from "./categories-page/categories-form/categories-form.component";
-import { OrderCategoriesComponent } from './order-page/order-categories/order-categories.component';
-import { OrderPositionsComponent } from './order-page/order-positions/order-positions.component';
+import { OrderCategoriesComponent } from './order-page/components/order-categories/order-categories.component';
+import { OrderPositionsComponent } from './order-page/components/order-positions/order-positions.component';
 
 const routes: Routes = [
   {
