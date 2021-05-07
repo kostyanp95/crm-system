@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { MaterializeInstance, MaterializeService } from "../shared/services/materialize.service";
+import { MaterializeInstance, MaterializeService } from "../../shared/services/materialize.service";
 
 @Component({
   selector: 'app-history-page',

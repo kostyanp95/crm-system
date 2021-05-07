@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 
-import { AuthService } from "../shared/services/auth.service";
-import { User } from "../shared/models/interfaces";
+import { AuthService } from "../../shared/services/auth.service";
+import { User } from "../../shared/models/interfaces";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { MaterializeService } from "../shared/services/materialize.service";
+import { MaterializeService } from "../../shared/services/materialize.service";
 
 @Component({
   selector: 'app-login-page',

@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 
-import { AuthService } from "../shared/services/auth.service";
-import { User } from "../shared/models/interfaces";
-import { MaterializeService } from "../shared/services/materialize.service";
+import { AuthService } from "../../shared/services/auth.service";
+import { User } from "../../shared/models/interfaces";
+import { MaterializeService } from "../../shared/services/materialize.service";
 
 @Component({
   selector: 'app-register-page',

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
-import { CategoriesService } from "../shared/services/categories.service";
-import { Category } from "../shared/models/category.model";
+import { CategoriesService } from "../../shared/services/categories.service";
+import { Category } from "../../shared/models/category.model";
 import { Observable } from "rxjs";
 
 @Component({
