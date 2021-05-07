@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { MaterializeInstance, MaterializeService } from '../../shared/services/materialize.service';
+import { MaterializeInstance, MaterializeService } from '../../../shared/services/materialize.service';
 import { OrderService } from '../services/order.service';
 
 @Component({

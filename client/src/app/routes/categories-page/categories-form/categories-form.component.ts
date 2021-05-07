@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { switchMap } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 
-import { CategoriesService } from "../../shared/services/categories.service";
-import { MaterializeService } from "../../shared/services/materialize.service";
-import { Category } from "../../shared/models/category.model";
+import { CategoriesService } from "../../../shared/services/categories.service";
+import { MaterializeService } from "../../../shared/services/materialize.service";
+import { Category } from "../../../shared/models/category.model";
 
 @Component({
   selector: 'app-categories-form',

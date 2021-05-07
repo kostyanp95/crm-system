@@ -10,9 +10,9 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { PositionService } from "../../../shared/services/position.service";
-import { Position } from "../../../shared/models/position.model";
-import { MaterializeService, MaterializeInstance } from "../../../shared/services/materialize.service";
+import { PositionService } from "../../../../shared/services/position.service";
+import { Position } from "../../../../shared/models/position.model";
+import { MaterializeService, MaterializeInstance } from "../../../../shared/services/materialize.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
