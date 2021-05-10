@@ -12,13 +12,13 @@ const categoryRoutes = require('./routes/category')
 const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
 
-mongoose.connect(keys.mongoURI, {
+mongoose.connect(keys.localMongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
 })
-    .then(() => console.log('MongoDB connected!'))
-    .catch(error => console.log(error))
+    .then(() => console.info('MongoDB connected.'))
+    .catch(error => console.error(error))
 
 app.use(passport.initialize())
 require('./middleware/passport')(passport)
