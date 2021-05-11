@@ -4,7 +4,7 @@ import { PositionService } from '../../../../shared/services/position.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Position } from '../../../../shared/models/position.model';
-import { OrderService } from '../../services/order.service';
+import { ModalOrderService } from '../../services/modal-order.service';
 import { MaterializeService } from '../../../../shared/services/materialize.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class OrderPositionsComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private positionService: PositionService,
-              private orderService: OrderService) {
+              private orderService: ModalOrderService) {
   }
 
   ngOnInit(): void {
