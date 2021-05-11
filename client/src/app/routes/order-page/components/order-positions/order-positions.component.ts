@@ -4,6 +4,8 @@ import { PositionService } from '../../../../shared/services/position.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Position } from '../../../../shared/models/position.model';
+import { OrderService } from '../../services/order.service';
+import { MaterializeService } from '../../../../shared/services/materialize.service';
 
 @Component({
   selector: 'app-order-positions',
@@ -11,10 +13,11 @@ import { Position } from '../../../../shared/models/position.model';
   styleUrls: ['./order-positions.component.scss']
 })
 export class OrderPositionsComponent implements OnInit {
-  positions$: Observable<Array<Position>>;
+  positions$: Observable<Array<Position>>
 
   constructor(private activatedRoute: ActivatedRoute,
-              private positionService: PositionService) {
+              private positionService: PositionService,
+              private orderService: OrderService) {
   }
 
   ngOnInit(): void {
@@ -37,6 +40,7 @@ export class OrderPositionsComponent implements OnInit {
   }
 
   addToOrder(position: Position) {
-    console.log(position);
+    this.orderService.add(position)
+    MaterializeService.toast(`Добавлено x${position.quantity} ${position.name}`)
   }
 }
