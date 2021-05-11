@@ -3,7 +3,7 @@ import { Position } from '../../../shared/models/position.model';
 import { OrderPosition } from '../../../shared/models/order.model';
 
 @Injectable()
-export class OrderService {
+export class ModalOrderService {
 
   list: Array<OrderPosition> = []
   price: number = 0
@@ -38,7 +38,8 @@ export class OrderService {
   }
 
   clear(): void {
-
+    this.list = []
+    this.price = 0
   }
 
   private computePrice() {

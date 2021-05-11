@@ -9,7 +9,9 @@
     <i class="material-icons">keyboard_arrow_right</i>
     Добавить продукцию
   </h4>
-  <button class="waves-effect btn grey darken-1" (click)="open()" [disabled]="orderService.list.length === 0">
+  <button class="waves-effect btn grey darken-1"
+          (click)="open()"
+          [disabled]="modalOrderService.list.length === 0">
     Завершить
   </button>
 </div>
@@ -30,27 +32,32 @@
       </thead>
 
       <tbody>
-      <tr *ngFor="let item of orderService.list">
+      <tr *ngFor="let item of modalOrderService.list">
         <td>{{ item.name }}</td>
         <td>{{ item.quantity }}</td>
         <td>{{ item.coast }}</td>
         <td>
-          <i class="material-icons pointer" (click)="removePosition(item)">delete</i>
+          <i class="material-icons pointer"
+             (click)="removePosition(item)">delete</i>
         </td>
       </tr>
       </tbody>
     </table>
     <div class="order-summary">
       <p>
-        Общая стоимость <strong>{{ orderService.price }} руб.</strong>
+        Общая стоимость <strong>{{ modalOrderService.price }} руб.</strong>
       </p>
     </div>
   </div>
   <div class="modal-footer">
-    <button class="modal-action waves-effect waves-black btn-flat" (click)="cancel()">
+    <button class="modal-action waves-effect waves-black btn-flat"
+            [disabled]="pending"
+            (click)="cancel()">
       Отмена
     </button>
-    <button class="modal-action btn waves-effect" (click)="submit()" [disabled]="orderService.list.length === 0">
+    <button class="modal-action btn waves-effect"
+            (click)="submit()"
+            [disabled]="modalOrderService.list.length === 0 || pending">
       Подтвердить
     </button>
   </div>
