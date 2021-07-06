@@ -9,6 +9,6 @@ export interface Order {
 export interface OrderPosition {
   name: string
   quantity: number
-  coast: number
+  cost: number
   _id?: string
 }

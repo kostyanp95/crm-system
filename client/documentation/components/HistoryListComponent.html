@@ -221,7 +221,7 @@
 
 
     <section>
-    
+
     <h3 id="methods">
         Methods
     </h3>
@@ -328,7 +328,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -476,7 +476,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -484,7 +484,7 @@
     </table>
 </section>
     <section>
-    
+
         <h3 id="inputs">
             Properties
         </h3>
@@ -606,7 +606,7 @@ export class HistoryListComponent implements OnDestroy, AfterViewInit {
 
   computePrice(order: Order): number {
     return order.list.reduce((total, item) &#x3D;&gt; {
-      return total +&#x3D; item.quantity * item.coast
+      return total +&#x3D; item.quantity * item.cost
     }, 0)
   }
 
@@ -643,7 +643,7 @@ export class HistoryListComponent implements OnDestroy, AfterViewInit {
       &lt;tr *ngFor&#x3D;&quot;let item of selectedOrder.list&quot;&gt;
         &lt;td&gt;{{ item.name }}&lt;/td&gt;
         &lt;td&gt;{{ item.quantity }}&lt;/td&gt;
-        &lt;td&gt;{{ item.coast }}&lt;/td&gt;
+        &lt;td&gt;{{ item.cost }}&lt;/td&gt;
       &lt;/tr&gt;
       &lt;/tbody&gt;
     &lt;/table&gt;
@@ -711,14 +711,14 @@ export class HistoryListComponent implements OnDestroy, AfterViewInit {
         </div>
     </div>
 
-    
+
 </div>
 
 <script src="../js/libs/vis.min.js"></script>
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div id="order-list" class="modal modal-fixed-footer" #modal>  <div class="modal-content" *ngIf="selectedOrder">    <h4 class="mb1">Заказ №{{ selectedOrder.order }}</h4>    <table class="highlight">      <thead>      <tr>        <th>Название</th>        <th>Количество</th>        <th>Цена</th>      </tr>      </thead>      <tbody>      <tr *ngFor="let item of selectedOrder.list">        <td>{{ item.name }}</td>        <td>{{ item.quantity }}</td>        <td>{{ item.coast }}</td>      </tr>      </tbody>    </table>    <div class="order-summary">      <p>Общая стоимость <strong>{{ computePrice(selectedOrder) }} руб.</strong></p>    </div>  </div>  <div class="modal-footer">    <button class="modal-action waves-effect waves-black btn-flat" (click)="closeModal()">      Закрыть    </button>  </div></div><table class="highlight mb2">  <thead>  <tr>    <th>№</th>    <th>Дата</th>    <th>Время</th>    <th>Сумма</th>    <th></th>  </tr>  </thead>  <tbody>  <tr *ngFor="let order of orders">    <td>{{ order.order }}</td>    <td>{{ order.date | date:\'dd.MM.yyy\'}}</td>    <td>{{ order.date | date:\'HH:mm:ss\'}}</td>    <td>{{ computePrice(order) }} ₽</td>    <td>      <button class="btn btn-small grey darken-1" (click)="selectOrder(order)">        <i class="material-icons">open_in_new</i>      </button>    </td>  </tr>  </tbody></table></div>'
+        var COMPONENT_TEMPLATE = '<div><div id="order-list" class="modal modal-fixed-footer" #modal>  <div class="modal-content" *ngIf="selectedOrder">    <h4 class="mb1">Заказ №{{ selectedOrder.order }}</h4>    <table class="highlight">      <thead>      <tr>        <th>Название</th>        <th>Количество</th>        <th>Цена</th>      </tr>      </thead>      <tbody>      <tr *ngFor="let item of selectedOrder.list">        <td>{{ item.name }}</td>        <td>{{ item.quantity }}</td>        <td>{{ item.cost }}</td>      </tr>      </tbody>    </table>    <div class="order-summary">      <p>Общая стоимость <strong>{{ computePrice(selectedOrder) }} руб.</strong></p>    </div>  </div>  <div class="modal-footer">    <button class="modal-action waves-effect waves-black btn-flat" (click)="closeModal()">      Закрыть    </button>  </div></div><table class="highlight mb2">  <thead>  <tr>    <th>№</th>    <th>Дата</th>    <th>Время</th>    <th>Сумма</th>    <th></th>  </tr>  </thead>  <tbody>  <tr *ngFor="let order of orders">    <td>{{ order.order }}</td>    <td>{{ order.date | date:\'dd.MM.yyy\'}}</td>    <td>{{ order.date | date:\'HH:mm:ss\'}}</td>    <td>{{ computePrice(order) }} ₽</td>    <td>      <button class="btn btn-small grey darken-1" (click)="selectOrder(order)">        <i class="material-icons">open_in_new</i>      </button>    </td>  </tr>  </tbody></table></div>'
     var COMPONENTS = [{'name': 'AnalyticsPageComponent', 'selector': 'app-analytics-page'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthLayoutComponent', 'selector': 'app-auth-layout'},{'name': 'CategoriesFormComponent', 'selector': 'app-categories-form'},{'name': 'CategoriesPageComponent', 'selector': 'app-categories-page'},{'name': 'HistoryFilterComponent', 'selector': 'app-history-filter'},{'name': 'HistoryListComponent', 'selector': 'app-history-list'},{'name': 'HistoryPageComponent', 'selector': 'app-history-page'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'LoginPageComponent', 'selector': 'app-login-page'},{'name': 'OrderCategoriesComponent', 'selector': 'app-order-categories'},{'name': 'OrderPageComponent', 'selector': 'app-order-page'},{'name': 'OrderPositionsComponent', 'selector': 'app-order-positions'},{'name': 'OverviewPageComponent', 'selector': 'app-overview-page'},{'name': 'PositionsFormComponent', 'selector': 'app-positions-form'},{'name': 'RegisterPageComponent', 'selector': 'app-register-page'},{'name': 'SiteLayoutComponent', 'selector': 'app-site-layout'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HistoryListComponent'};
@@ -734,7 +734,7 @@ export class HistoryListComponent implements OnDestroy, AfterViewInit {
 
 
 
-                   
+
 
 
 
