@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
@@ -10,8 +10,7 @@ import { MaterializeService } from "../../shared/services/materialize.service";
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./register-page.component.scss']
 })
 export class RegisterPageComponent implements OnInit, OnDestroy {
   form: FormGroup = this.fb.group({

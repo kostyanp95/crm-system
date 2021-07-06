@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { MaterializeService } from "../../services/materialize.service";
@@ -6,8 +6,7 @@ import { MaterializeService } from "../../services/materialize.service";
 @Component({
   selector: 'app-site-layout',
   templateUrl: './site-layout.component.html',
-  styleUrls: ['./site-layout.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./site-layout.component.scss']
 })
 export class SiteLayoutComponent implements AfterViewInit {
 

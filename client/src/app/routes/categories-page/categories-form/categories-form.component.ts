@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { switchMap } from "rxjs/operators";
@@ -11,8 +11,7 @@ import { Category } from "../../../shared/models/category.model";
 @Component({
   selector: 'app-categories-form',
   templateUrl: './categories-form.component.html',
-  styleUrls: ['./categories-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./categories-form.component.scss']
 })
 export class CategoriesFormComponent implements OnInit {
 
@@ -27,7 +26,6 @@ export class CategoriesFormComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
               private categoriesService: CategoriesService,
-              private cdr: ChangeDetectorRef,
               private router: Router) {
   }
 
@@ -65,7 +63,6 @@ export class CategoriesFormComponent implements OnInit {
               name: category.name
             })
             this.categoryImagePreview = category.imageSrc
-            this.cdr.markForCheck()
             MaterializeService.updateTextFields()
           }
         },
@@ -92,7 +89,6 @@ export class CategoriesFormComponent implements OnInit {
 
     reader.onload = () => {
       this.categoryImagePreview = reader.result
-      this.cdr.markForCheck()
     }
 
     reader.readAsDataURL(this.categoryImage)
@@ -116,12 +112,10 @@ export class CategoriesFormComponent implements OnInit {
           this.category = category
           MaterializeService.toast('Изменения сохранены.')
           this.form.enable()
-          this.cdr.markForCheck()
         },
         error => {
           MaterializeService.toast(error.error.message)
           this.form.enable()
-          this.cdr.markForCheck()
         }
       )
   }
