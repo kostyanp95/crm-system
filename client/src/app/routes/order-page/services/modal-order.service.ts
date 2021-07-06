@@ -14,7 +14,7 @@ export class ModalOrderService {
   add(position: Position): void {
     const orderPosition: OrderPosition = Object.assign({}, {
       name: position.name,
-      coast: position.cost,
+      cost: position.cost,
       quantity: position.quantity,
       _id: position._id
     })
@@ -44,7 +44,7 @@ export class ModalOrderService {
 
   private computePrice() {
     this.price = this.list.reduce((total, item) => {
-      return total += item.quantity * item.coast
+      return total += item.quantity * item.cost
     }, 0)
   }
 

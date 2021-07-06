@@ -234,39 +234,39 @@
                                         <tbody>
                                                 <tr>
                                                         <td>router</td>
-                                                  
+
                                                         <td>
                                                                         <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                         <td>modalOrderService</td>
-                                                  
+
                                                         <td>
                                                                         <code><a href="../injectables/ModalOrderService.html" target="_self" >ModalOrderService</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                         <td>ordersService</td>
-                                                  
+
                                                         <td>
                                                                         <code><a href="../injectables/OrdersService.html" target="_self" >OrdersService</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -282,7 +282,7 @@
 
 
     <section>
-    
+
     <h3 id="methods">
         Methods
     </h3>
@@ -584,7 +584,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -631,7 +631,7 @@
     </table>
 </section>
     <section>
-    
+
         <h3 id="inputs">
             Properties
         </h3>
@@ -939,7 +939,7 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
       &lt;tr *ngFor&#x3D;&quot;let item of modalOrderService.list&quot;&gt;
         &lt;td&gt;{{ item.name }}&lt;/td&gt;
         &lt;td&gt;{{ item.quantity }}&lt;/td&gt;
-        &lt;td&gt;{{ item.coast }}&lt;/td&gt;
+        &lt;td&gt;{{ item.cost }}&lt;/td&gt;
         &lt;td&gt;
           &lt;i class&#x3D;&quot;material-icons pointer&quot;
              (click)&#x3D;&quot;removePosition(item)&quot;&gt;delete&lt;/i&gt;
@@ -994,14 +994,14 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
         </div>
     </div>
 
-    
+
 </div>
 
 <script src="../js/libs/vis.min.js"></script>
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="page-title">  <h4 *ngIf="isRoot">    Заказ  </h4>  <h4 *ngIf="!isRoot">    <a routerLink="/order">      Заказ    </a>    <i class="material-icons">keyboard_arrow_right</i>    Добавить продукцию  </h4>  <button class="waves-effect btn grey darken-1"          (click)="open()"          [disabled]="modalOrderService.list.length === 0">    Завершить  </button></div><router-outlet></router-outlet><div #modal class="modal modal-fixed-footer">  <div class="modal-content">    <h4 class="mb1">Ваш заказ</h4>    <table class="highlight">      <thead>      <tr>        <th>Название</th>        <th>Количество</th>        <th>Цена</th>        <th></th>      </tr>      </thead>      <tbody>      <tr *ngFor="let item of modalOrderService.list">        <td>{{ item.name }}</td>        <td>{{ item.quantity }}</td>        <td>{{ item.coast }}</td>        <td>          <i class="material-icons pointer"             (click)="removePosition(item)">delete</i>        </td>      </tr>      </tbody>    </table>    <div class="order-summary">      <p>        Общая стоимость <strong>{{ modalOrderService.price }} руб.</strong>      </p>    </div>  </div>  <div class="modal-footer">    <button class="modal-action waves-effect waves-black btn-flat"            [disabled]="pending"            (click)="cancel()">      Отмена    </button>    <button class="modal-action btn waves-effect"            (click)="submit()"            [disabled]="modalOrderService.list.length === 0 || pending">      Подтвердить    </button>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="page-title">  <h4 *ngIf="isRoot">    Заказ  </h4>  <h4 *ngIf="!isRoot">    <a routerLink="/order">      Заказ    </a>    <i class="material-icons">keyboard_arrow_right</i>    Добавить продукцию  </h4>  <button class="waves-effect btn grey darken-1"          (click)="open()"          [disabled]="modalOrderService.list.length === 0">    Завершить  </button></div><router-outlet></router-outlet><div #modal class="modal modal-fixed-footer">  <div class="modal-content">    <h4 class="mb1">Ваш заказ</h4>    <table class="highlight">      <thead>      <tr>        <th>Название</th>        <th>Количество</th>        <th>Цена</th>        <th></th>      </tr>      </thead>      <tbody>      <tr *ngFor="let item of modalOrderService.list">        <td>{{ item.name }}</td>        <td>{{ item.quantity }}</td>        <td>{{ item.cost }}</td>        <td>          <i class="material-icons pointer"             (click)="removePosition(item)">delete</i>        </td>      </tr>      </tbody>    </table>    <div class="order-summary">      <p>        Общая стоимость <strong>{{ modalOrderService.price }} руб.</strong>      </p>    </div>  </div>  <div class="modal-footer">    <button class="modal-action waves-effect waves-black btn-flat"            [disabled]="pending"            (click)="cancel()">      Отмена    </button>    <button class="modal-action btn waves-effect"            (click)="submit()"            [disabled]="modalOrderService.list.length === 0 || pending">      Подтвердить    </button>  </div></div></div>'
     var COMPONENTS = [{'name': 'AnalyticsPageComponent', 'selector': 'app-analytics-page'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthLayoutComponent', 'selector': 'app-auth-layout'},{'name': 'CategoriesFormComponent', 'selector': 'app-categories-form'},{'name': 'CategoriesPageComponent', 'selector': 'app-categories-page'},{'name': 'HistoryFilterComponent', 'selector': 'app-history-filter'},{'name': 'HistoryListComponent', 'selector': 'app-history-list'},{'name': 'HistoryPageComponent', 'selector': 'app-history-page'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'LoginPageComponent', 'selector': 'app-login-page'},{'name': 'OrderCategoriesComponent', 'selector': 'app-order-categories'},{'name': 'OrderPageComponent', 'selector': 'app-order-page'},{'name': 'OrderPositionsComponent', 'selector': 'app-order-positions'},{'name': 'OverviewPageComponent', 'selector': 'app-overview-page'},{'name': 'PositionsFormComponent', 'selector': 'app-positions-form'},{'name': 'RegisterPageComponent', 'selector': 'app-register-page'},{'name': 'SiteLayoutComponent', 'selector': 'app-site-layout'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'OrderPageComponent'};
@@ -1017,7 +1017,7 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-                   
+
 
 
 

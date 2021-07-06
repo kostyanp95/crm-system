@@ -137,7 +137,7 @@
 </section>
 
             <section>
-    
+
     <h3 id="methods">
         Methods
     </h3>
@@ -205,7 +205,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -355,7 +355,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -363,7 +363,7 @@
     </table>
 </section>
             <section>
-    
+
         <h3 id="inputs">
             Properties
         </h3>
@@ -453,7 +453,7 @@ export class ModalOrderService {
   add(position: Position): void {
     const orderPosition: OrderPosition &#x3D; Object.assign({}, {
       name: position.name,
-      coast: position.cost,
+      cost: position.cost,
       quantity: position.quantity,
       _id: position._id
     })
@@ -483,7 +483,7 @@ export class ModalOrderService {
 
   private computePrice() {
     this.price &#x3D; this.list.reduce((total, item) &#x3D;&gt; {
-      return total +&#x3D; item.quantity * item.coast
+      return total +&#x3D; item.quantity * item.cost
     }, 0)
   }
 
@@ -499,7 +499,7 @@ export class ModalOrderService {
 
 
 
-                   
+
 
 
 

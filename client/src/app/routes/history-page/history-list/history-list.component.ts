@@ -20,7 +20,7 @@ export class HistoryListComponent implements OnDestroy, AfterViewInit {
 
   computePrice(order: Order): number {
     return order.list.reduce((total, item) => {
-      return total += item.quantity * item.coast
+      return total += item.quantity * item.cost
     }, 0)
   }
 
