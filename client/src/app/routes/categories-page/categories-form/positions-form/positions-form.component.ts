@@ -1,25 +1,14 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { PositionService } from "../../../../shared/services/position.service";
 import { Position } from "../../../../shared/models/position.model";
-import { MaterializeService, MaterializeInstance } from "../../../../shared/services/materialize.service";
+import { MaterializeInstance, MaterializeService } from "../../../../shared/services/materialize.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-positions-form',
   templateUrl: './positions-form.component.html',
-  styleUrls: ['./positions-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./positions-form.component.scss']
 })
 export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -32,7 +21,6 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   form: FormGroup
 
   constructor(private positionService: PositionService,
-              private cdr: ChangeDetectorRef,
               private fb: FormBuilder) {
   }
 
@@ -51,10 +39,9 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   loadingPositions(): void {
     this.loading = true
     this.positionService.fetch(this.categoryId)
-        .subscribe(positions => {
-          this.positions = positions
-          this.cdr.markForCheck()
-        })
+      .subscribe(positions => {
+        this.positions = positions
+      })
     this.loading = false
   }
 
@@ -104,33 +91,31 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     if (this.positionId) {
       newPosition._id = this.positionId
       this.positionService.update(newPosition)
-          .subscribe(
-            position => {
-              const index = this.positions.findIndex(p => p._id === position._id)
-              this.positions[index] = position
-              this.cdr.markForCheck()
-              MaterializeService.toast('Позиция изменена')
-            },
-            error => {
-              MaterializeService.toast(error.error.message)
-              console.log(error.error.message)
-            },
-            completed
-          )
+        .subscribe(
+          position => {
+            const index = this.positions.findIndex(p => p._id === position._id)
+            this.positions[index] = position
+            MaterializeService.toast('Позиция изменена')
+          },
+          error => {
+            MaterializeService.toast(error.error.message)
+            console.log(error.error.message)
+          },
+          completed
+        )
     } else {
       this.positionService.create(newPosition)
-          .subscribe(
-            position => {
-              this.positions.push(position)
-              this.cdr.markForCheck()
-              MaterializeService.toast('Позиция создана')
-            },
-            error => {
-              MaterializeService.toast(error.error.message)
-              console.log(error.error.message)
-            },
-            completed
-          )
+        .subscribe(
+          position => {
+            this.positions.push(position)
+            MaterializeService.toast('Позиция создана')
+          },
+          error => {
+            MaterializeService.toast(error.error.message)
+            console.log(error.error.message)
+          },
+          completed
+        )
     }
   }
 
@@ -140,15 +125,14 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
 
     if (decision) {
       this.positionService.delete(position)
-          .subscribe(
-            response => {
-              const idx = this.positions.findIndex(p => p._id === position._id)
-              this.positions.splice(idx, 1)
-              this.cdr.markForCheck()
-              MaterializeService.toast(response.message)
-            },
-            error => MaterializeService.toast(error.error.message)
-          )
+        .subscribe(
+          response => {
+            const idx = this.positions.findIndex(p => p._id === position._id)
+            this.positions.splice(idx, 1)
+            MaterializeService.toast(response.message)
+          },
+          error => MaterializeService.toast(error.error.message)
+        )
     }
   }
 }

@@ -1,16 +1,9 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MaterializeInstance, MaterializeService } from "../../shared/services/materialize.service";
 import { OrdersService } from '../../shared/services/orders.service';
 import { Subscription } from 'rxjs';
 import { Order } from '../../shared/models/order.model';
+import { Filter } from '../../shared/models/filter.model';
 
 const STEP = 2
 
@@ -24,6 +17,7 @@ export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   tooltip: MaterializeInstance
   isFilterVisible: boolean = false
   orders: Array<Order> = []
+  filter: Filter = {}
   offset: number = 0
   limit: number = STEP
   subscription: Subscription
@@ -31,8 +25,7 @@ export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   reloading: boolean = false
   noMoreOrders: boolean = false
 
-  constructor(private ordersService: OrdersService,
-              private cdr: ChangeDetectorRef) {
+  constructor(private ordersService: OrdersService) {
   }
 
   ngOnInit(): void {
@@ -49,11 +42,11 @@ export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private getListOrders(): void {
-    const params = {
+    const params = Object.assign({}, this.filter, {
       offset: this.offset,
       limit: this.limit
+    })
 
-    }
     this.subscription = this.ordersService.getList(params)
       .subscribe(
         orders => {
@@ -61,7 +54,6 @@ export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
           this.noMoreOrders = orders.length < STEP
           this.loading = false
           this.reloading = false
-          this.cdr.markForCheck()
         }
       )
   }
@@ -70,5 +62,17 @@ export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.offset += STEP
     this.loading = true
     this.getListOrders()
+  }
+
+  applyFilter(filter: Filter): void {
+    this.orders = []
+    this.offset = 0
+    this.filter = filter
+    this.reloading = true
+    this.getListOrders()
+  }
+
+  isFiltered(): boolean {
+    return Object.keys(this.filter).length !== 0
   }
 }
