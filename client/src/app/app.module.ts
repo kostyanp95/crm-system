@@ -43,13 +43,13 @@ import { AnalyticsPageComponent } from './routes/analytics-page/analytics-page.c
     OrderCategoriesComponent,
     OrderPositionsComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
