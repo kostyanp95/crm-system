@@ -2,12 +2,7 @@ const moment = require('moment')
 const Order = require('../models/Order')
 const errorHandler = require('../utils/errorHandler')
 
-/**
- * Страница Overview
- * @param req - request
- * @param res - response
- */
-module.exports.overview = async function (req, res) {
+module.exports.overview = async function(req, res) {
     try {
         const allOrders = await Order.find({user: req.user.id}).sort({date: 1})
         const ordersMap = getOrdersMap(allOrders)
@@ -17,12 +12,12 @@ module.exports.overview = async function (req, res) {
         const yesterdayOrdersNumber = yesterdayOrders.length
         // Количество заказов
         const totalOrdersNumber = allOrders.length
-        // Количество дней
+        // Количество дней всего
         const daysNumber = Object.keys(ordersMap).length
         // Заказов в день
         const ordersPerDay = (totalOrdersNumber / daysNumber).toFixed(0)
         // ((заказов вчера \ кол-во заказов в день) - 1) * 100
-        // Процент кол-ва заказов
+        // Процент для кол-ва заказов
         const ordersPercent = (((yesterdayOrdersNumber / ordersPerDay) - 1) * 100).toFixed(2)
         // Общая выручка
         const totalGain = calculatePrice(allOrders)
@@ -52,41 +47,34 @@ module.exports.overview = async function (req, res) {
             }
         })
 
-    } catch (error) {
-        errorHandler(res, error)
+    } catch (e) {
+        errorHandler(res, e)
     }
 }
 
-module.exports.analytics = async function (req, res) {
+module.exports.analytics = async function(req, res) {
     try {
         const allOrders = await Order.find({user: req.user.id}).sort({date: 1})
         const ordersMap = getOrdersMap(allOrders)
 
-        //Средний чек
         const average = +(calculatePrice(allOrders) / Object.keys(ordersMap).length).toFixed(2)
 
         const chart = Object.keys(ordersMap).map(label => {
-            // label == 05.05.2021
+            // label == 05.05.2018
             const gain = calculatePrice(ordersMap[label])
             const order = ordersMap[label].length
 
             return {label, order, gain}
         })
 
-        res.status(200).json({
-            average,
 
-        })
+        res.status(200).json({average, chart})
 
     } catch (e) {
-        errorHandler(e)
+        errorHandler(res, e)
     }
 }
 
-/**
- * Группировка по дням всех заказы.
- * @param orders - список всех заказов.
- */
 function getOrdersMap(orders = []) {
     const daysOrders = {}
     orders.forEach(order => {
@@ -102,13 +90,9 @@ function getOrdersMap(orders = []) {
 
         daysOrders[date].push(order)
     })
-
-    return orders
+    return daysOrders
 }
 
-/**
- * Рассчет общей выручки со всех заказов.
- */
 function calculatePrice(orders = []) {
     return orders.reduce((total, order) => {
         const orderPrice = order.list.reduce((orderTotal, item) => {
