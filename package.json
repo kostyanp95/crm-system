@@ -3,6 +3,10 @@
   "version": "0.1.0-rc",
   "description": "crm system development with MEAN stack",
   "main": "index.js",
+  "engines": {
+    "node": "9.9.0",
+    "npm": "5.6.0"
+  },
   "scripts": {
     "start": "node index",
     "server": "nodemon index",
@@ -11,7 +15,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "compodoc": "compodoc -p src/tsconfig.compodoc.json"
+    "compodoc": "compodoc -p src/tsconfig.compodoc.json",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run client-install && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
