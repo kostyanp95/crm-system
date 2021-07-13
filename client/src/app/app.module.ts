@@ -22,6 +22,8 @@ import { HistoryFilterComponent } from './routes/history-page/history-filter/his
 import { OrderCategoriesComponent } from './routes/order-page/components/order-categories/order-categories.component';
 import { OrderPositionsComponent } from './routes/order-page/components/order-positions/order-positions.component';
 import { AnalyticsPageComponent } from './routes/analytics-page/analytics-page.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,13 @@ import { AnalyticsPageComponent } from './routes/analytics-page/analytics-page.c
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     {
