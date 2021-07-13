@@ -9,7 +9,7 @@ const errorHandler = require('../utils/errorHandler')
  */
 module.exports.overview = async function (req, res) {
     try {
-        const allOrders = await Order.find({user: req.user.id}).sort(1)
+        const allOrders = await Order.find({user: req.user.id}).sort({date: 1})
         const ordersMap = getOrdersMap(allOrders)
         const yesterdayOrders = ordersMap[moment().add(-1, 'd').format('DD.MM.YYYY')] || []
 
@@ -65,7 +65,7 @@ module.exports.analytics = function (req, res) {
  * Группировка по дням всех заказы.
  * @param orders - список всех заказов.
  */
-function getOrdersMap(orders = []): Array<Order> {
+function getOrdersMap(orders = []) {
     const daysOrders = {}
     orders.forEach(order => {
         const date = moment(order.date).format('DD.MM.YYYY')

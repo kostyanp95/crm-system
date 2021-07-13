@@ -43,4 +43,8 @@ export class MaterializeService {
       onClose
     })
   }
+
+  static iniTapTarget(ref: ElementRef): MaterializeInstance {
+    return M.TapTarget.init(ref.nativeElement)
+  }
 }
