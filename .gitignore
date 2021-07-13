@@ -49,5 +49,5 @@ testem.log
 Thumbs.db
 
 # Keys for connection with mongoDV
-/config/keys.dev.js
+/config/keys.js
 /uploads/
