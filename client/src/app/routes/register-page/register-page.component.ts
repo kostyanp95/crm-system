@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Subscription } from "rxjs";
-import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
-import { AuthService } from "../../shared/services/auth.service";
-import { User } from "../../shared/models/interfaces";
-import { MaterializeService } from "../../shared/services/materialize.service";
+import { AuthService } from '../../shared/services/auth.service';
+import { User } from '../../shared/models/interfaces';
+import { MaterializeService } from '../../shared/services/materialize.service';
 
 @Component({
   selector: 'app-register-page',
@@ -14,7 +14,8 @@ import { MaterializeService } from "../../shared/services/materialize.service";
 })
 export class RegisterPageComponent implements OnInit, OnDestroy {
   form: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    name: ['', Validators.required],
+    surname: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(7)]]
   })
   subscription: Subscription

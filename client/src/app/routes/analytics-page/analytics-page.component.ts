@@ -14,7 +14,7 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
   @ViewChild('order') orderRef: ElementRef
 
   average: number
-  pending: boolean = true
+  pending = true
   subscription: Subscription
 
   constructor(private analyticsService: AnalyticsService) {
@@ -67,7 +67,7 @@ function createChartConfig({labels, data, label, color}): any {
       responsive: true
     },
     data: {
-      labels: labels,
+      labels,
       datasets: [
         {
           label, data,

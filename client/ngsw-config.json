@@ -26,5 +26,17 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "crm",
+      "urls": [
+        "https://obscure-wildwood-16920.herokuapp.com/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 5,
+        "maxAge": "3600"
+      }
+    }
   ]
 }

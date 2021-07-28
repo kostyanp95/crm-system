@@ -1,0 +1,40 @@
+.menu-hamburger {
+  margin: 20px 20px 0;
+}
+
+.right {
+  width: 100%;
+}
+
+li.bold.last {
+  list-style: none;
+  width: 100%;
+}
+
+#mobile-sidenav {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  padding-bottom: 0;
+
+  h4 {
+    text-align: center;
+  }
+
+  ul {
+    width: 100%;
+  }
+
+  li {
+    margin-top: auto;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 767.98px) {
+
+  main, footer {
+    margin: 0 !important;
+    width: 100%;
+  }
+
+}

@@ -4,21 +4,44 @@
       Регистрация
     </span>
     <div class="input-field">
-      <input formControlName="email" id="email" type="email"
-             [class.invalid]="form.get('email').invalid && form.get('email').touched">
-      <label for="email">
-        Email:
+      <input formControlName="name" type="text"
+             [class.invalid]="form.get('name').invalid && form.get('name').touched">
+      <label>
+        Имя:
       </label>
-      <span *ngIf="form.get('email').invalid && form.get('email').touched"
+      <span *ngIf="form.get('name').invalid && form.get('name').touched"
             class="helper-text red-text">
-        <span *ngIf="form.get('email').hasError('required')">
-          Email не должен быть пустым
-        </span>
-        <span *ngIf="form.get('email').hasError('email')">
-          Введите корректный email адрес
+        <span *ngIf="form.get('name').hasError('required')">
+          Имя обязательно
         </span>
       </span>
     </div>
+    <div class="input-field">
+      <input formControlName="surname" type="text"
+             [class.invalid]="form.get('surname').invalid && form.get('surname').touched">
+      <label>
+        Фамилия:
+      </label>
+      <span *ngIf="form.get('surname').invalid && form.get('surname').touched"
+            class="helper-text red-text">
+        <span *ngIf="form.get('surname').hasError('required')">
+          Фамилия обязательна
+        </span>
+      </span>
+    </div>
+<!--    <div class="input-field">-->
+<!--      <input formControlName="email" id="email" type="email"-->
+<!--             [class.invalid]="form.get('email').invalid && form.get('email').touched">-->
+<!--      <label for="email">-->
+<!--        Email:-->
+<!--      </label>-->
+<!--      <span *ngIf="form.get('email').invalid && form.get('email').touched"-->
+<!--            class="helper-text red-text">-->
+<!--        <span *ngIf="form.get('email').hasError('email')">-->
+<!--          Введите корректный email адрес-->
+<!--        </span>-->
+<!--      </span>-->
+<!--    </div>-->
     <div class="input-field">
       <input formControlName="password" id="password" type="password">
       <label for="password" [class.invalid]="form.get('password').invalid && form.get('password').touched">

@@ -1,16 +1,35 @@
-<ul class="sidenav sidenav-fixed a-sidenav">
+<div class="menu-hamburger">
+  <a class="sidenav-trigger hide-on-med-and-up" (click)="openSidenav()"><i class="material-icons">menu</i></a>
+</div>
+<div class="sidenav sidenav-fixed a-sidenav hide-on-med-and-down">
   <h4>CRM</h4>
 
-  <li *ngFor="let link of listLinks" class="bold" routerLinkActive="active">
-    <a [routerLink]="[link.url]" class="waves-effect waves-orange">
-      {{ link.name }}
-    </a>
-  </li>
+  <ul class="right">
+    <li *ngFor="let link of listLinks" class="bold" routerLinkActive="active">
+      <a [routerLink]="[link.url]" class="waves-effect waves-orange">
+        {{ link.name }}
+      </a>
+    </li>
+  </ul>
 
   <li class="bold last">
-    <a href="#" class="waves-effect waves-orange" (click)="logout($event)">
-      Выйти
-    </a>
+    <a class="waves-effect waves-orange" (click)="logout($event)"> Выйти </a>
+  </li>
+</div>
+
+<ul class="sidenav" id="mobile-sidenav" #sidenav>
+  <h4>CRM</h4>
+
+  <ul class="right">
+    <li *ngFor="let link of listLinks" class="bold" routerLinkActive="active" (click)="closeSidenav()">
+      <a [routerLink]="[link.url]" class="waves-effect waves-orange">
+        {{ link.name }}
+      </a>
+    </li>
+  </ul>
+
+  <li class="bold last">
+    <a class="waves-effect waves-orange" (click)="logout($event)"> Выйти </a>
   </li>
 </ul>
 
@@ -36,4 +55,4 @@
   </ul>
 </div>
 
-<a id="menu" class="waves-effect waves-light btn btn-floating"><i class="material-icons">info</i></a>
+<a id="menu" class="waves-effect waves-light btn btn-floating float-btn"><i class="material-icons">info</i></a>

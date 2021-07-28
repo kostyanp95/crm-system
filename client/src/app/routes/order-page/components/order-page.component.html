@@ -48,7 +48,58 @@
         Общая стоимость <strong>{{ modalOrderService.price }} руб.</strong>
       </p>
     </div>
+
+    <label>
+      <input type="checkbox" checked="checked" [(ngModel)]="isNewClient">
+      <span>Новый клиент</span>
+    </label>
+
+    <div class="old-client" *ngIf="!isNewClient">
+      <div class="order-summary client">
+        <p>
+          Выберите клиента:
+        </p>
+      </div>
+      <div class="col s12">
+        <label>Клиенты из базы</label>
+        <select class="browser-default" #select [(ngModel)]="selectedClientId">
+          <option [value]="client._id" *ngFor="let client of clients">
+            {{ client.name + ' ' + client.surname }}, телефон: {{ client.phone }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="new-client" *ngIf="isNewClient">
+      <div class="order-summary client">
+        <p>
+          Данные клиента:
+        </p>
+      </div>
+      <form [formGroup]="form">
+        <div class="input-field inline order-position-input">
+          <i class="material-icons prefix">account_circle</i>
+          <input type="text" formControlName="name">
+          <label>Имя</label>
+        </div>
+        <div class="input-field inline order-position-input">
+          <input type="text" formControlName="surname">
+          <label>Фамилия</label>
+        </div>
+        <div class="input-field order-position-input">
+          <i class="material-icons prefix">phone</i>
+          <input type="tel" formControlName="phone">
+          <label>Телефон</label>
+        </div>
+        <div class="input-field order-position-input">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="textarea1" class="materialize-textarea" formControlName="comment"></textarea>
+          <label for="textarea1">Комментарий</label>
+        </div>
+      </form>
+    </div>
   </div>
+
   <div class="modal-footer">
     <button class="modal-action waves-effect waves-black btn-flat"
             [disabled]="pending"

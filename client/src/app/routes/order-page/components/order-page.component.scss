@@ -1,0 +1,12 @@
+.order-summary {
+  margin-bottom: 20px;
+}
+
+.order-summary.client {
+  justify-content: start;
+}
+
+.input-field:not(:last-child) {
+  width: 45%;
+  margin-bottom: 20px;
+}

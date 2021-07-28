@@ -6,7 +6,7 @@ import { OrderPosition } from '../../../shared/models/order.model';
 export class ModalOrderService {
 
   list: Array<OrderPosition> = []
-  price: number = 0
+  price = 0
 
   constructor() {
   }

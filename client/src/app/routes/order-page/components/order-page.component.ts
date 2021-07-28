@@ -5,82 +5,123 @@ import { ModalOrderService } from '../services/modal-order.service';
 import { Order, OrderPosition } from '../../../shared/models/order.model';
 import { OrdersService } from '../../../shared/services/orders.service';
 import { Subscription } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ClientsService } from '../../../shared/services/clients.service';
+import { Client } from '../../../shared/models/client.model';
 
 @Component({
-    selector: 'app-order-page',
-    templateUrl: './order-page.component.html',
-    styleUrls: ['./order-page.component.scss'],
-    providers: [ModalOrderService]
+  selector: 'app-order-page',
+  templateUrl: './order-page.component.html',
+  styleUrls: ['./order-page.component.scss'],
+  providers: [ModalOrderService]
 })
 export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    @ViewChild('modal') modalRef: ElementRef
-    modal: MaterializeInstance
-    isRoot: boolean
-    pending = false
-    subscription: Subscription
+  @ViewChild('modal') modalRef: ElementRef
+  @ViewChild('select') selectRef: ElementRef
+  modal: MaterializeInstance
+  isRoot: boolean
+  pending = false
+  subscription: Subscription
+  form: FormGroup
+  isNewClient = false
+  clients: Array<Client> = []
+  selectedClientId: string
+  selectedClient: Client
 
-    constructor(private router: Router,
-                public modalOrderService: ModalOrderService,
-                private ordersService: OrdersService) {
-    }
+  constructor(private router: Router,
+              private fb: FormBuilder,
+              public modalOrderService: ModalOrderService,
+              private clientsService: ClientsService,
+              private ordersService: OrdersService) {
+  }
 
-    ngOnInit(): void {
-        this.isRootPath()
-        this.router.events
-            .subscribe(event => {
-                if (event instanceof NavigationEnd) {
-                    this.isRootPath()
-                }
-            })
-    }
-
-    isRootPath(): void {
-        this.isRoot = this.router.url === '/order'
-    }
-
-    ngAfterViewInit(): void {
-        this.modal = MaterializeService.initModal(this.modalRef)
-    }
-
-    open(): void {
-        this.modal.open()
-    }
-
-    submit() {
-        this.pending = true
-
-        const order: Order = {
-            list: this.modalOrderService.list.map(item => {
-                delete item._id
-                return item
-            })
+  ngOnInit(): void {
+    this.initClientForm()
+    this.isRootPath()
+    this.getClientsList()
+    this.router.events
+      .subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          this.isRootPath()
         }
+      })
+  }
 
-        this.subscription = this.ordersService.create(order)
-            .subscribe(
-                newOrder => {
-                    MaterializeService.toast(`Заказ №${newOrder.order} был добавлен.`)
+  getClientsList(): void {
+    this.clientsService.getList()
+      .subscribe(clients => {
+        this.clients = clients
+      })
+  }
 
-                },
-                error => MaterializeService.toast(error.error.message),
-                () => {
-                    this.modal.close()
-                    this.pending = false
-                }
-            )
+  initClientForm(): void {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      phone: ['', Validators.required],
+      comment: ''
+    })
+  }
+
+  isRootPath(): void {
+    this.isRoot = this.router.url === '/order'
+  }
+
+  ngAfterViewInit(): void {
+    this.modal = MaterializeService.initModal(this.modalRef)
+  }
+
+  open(): void {
+    this.modal.open()
+  }
+
+  submit(): void {
+    this.pending = true
+    let clientId: string
+    let client: Client
+    const order: Order = {} as Order
+
+    if (this.isNewClient) {
+      client = this.form.getRawValue()
+      order.client = client
+      console.log('new client: ', client)
+    } else {
+      clientId = this.selectedClientId
+      order['clientId'] = clientId
+      console.log('clientId: ', clientId)
     }
 
-    cancel() {
-        this.modal.close()
-    }
+    order.list = this.modalOrderService.list.map(item => {
+      delete item._id
+      return item
+    })
 
-    ngOnDestroy(): void {
-        this.modal.destroy()
-        this.subscription ? this.subscription.unsubscribe() : null
-    }
+    this.subscription = this.ordersService.create(order)
+      .subscribe(
+        (newOrder) => {
+          MaterializeService.toast(`Заказ №${newOrder.order['order']} был добавлен.`)
+        },
+        error => MaterializeService.toast(error.error.message),
+        () => {
+          this.modal.close()
+          this.pending = false
+        }
+      )
+  }
 
-    removePosition(orderPosition: OrderPosition) {
-        this.modalOrderService.remove(orderPosition)
+  cancel(): void {
+    this.modal.close()
+  }
+
+  removePosition(orderPosition: OrderPosition): void {
+    this.modalOrderService.remove(orderPosition)
+  }
+
+  ngOnDestroy(): void {
+    this.modal.destroy()
+    if (this.subscription) {
+      this.subscription.unsubscribe()
     }
+  }
 }

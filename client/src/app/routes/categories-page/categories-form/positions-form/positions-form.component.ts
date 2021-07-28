@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-import { PositionService } from "../../../../shared/services/position.service";
-import { Position } from "../../../../shared/models/position.model";
-import { MaterializeInstance, MaterializeService } from "../../../../shared/services/materialize.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { PositionService } from '../../../../shared/services/position.service';
+import { Position } from '../../../../shared/models/position.model';
+import { MaterializeInstance, MaterializeService } from '../../../../shared/services/materialize.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-positions-form',
@@ -16,7 +16,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   @Input('categoryId') categoryId
   positions: Array<Position> = []
   positionId = null
-  loading: boolean = false
+  loading = false
   modal: MaterializeInstance
   form: FormGroup
 
@@ -99,7 +99,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
           },
           error => {
             MaterializeService.toast(error.error.message)
-            console.log(error.error.message)
+            console.error(error.error.message)
           },
           completed
         )
@@ -112,14 +112,14 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
           },
           error => {
             MaterializeService.toast(error.error.message)
-            console.log(error.error.message)
+            console.error(error.error.message)
           },
           completed
         )
     }
   }
 
-  deletePosition(event: Event, position: Position) {
+  deletePosition(event: Event, position: Position): void {
     event.stopPropagation()
     const decision = window.confirm(`Удалить позицию "${position.name}"?`)
 

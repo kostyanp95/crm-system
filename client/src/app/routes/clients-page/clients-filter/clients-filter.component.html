@@ -1,0 +1,26 @@
+<form [formGroup]="form" class="filter">
+  <div class="fr">
+    <div class="col order">
+      <div class="input-field inline order-position-input">
+        <input type="number" min="1" formControlName="order">
+        <label>Номер клиента</label>
+      </div>
+    </div>
+    <div class="col order">
+      <div class="input-field inline order-position-input">
+        <input type="text" formControlName="name">
+        <label>Имя клиента</label>
+      </div>
+    </div>
+    <div class="col filter-pickers">
+      <div class="input-field">
+        <input type="text" #dateRegister formControlName="registrationDate">
+        <label>Дата регистрации</label>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn waves-effect wavers-light btn-small" (click)="submitFilter()" [disabled]="!isValid">
+    Применить фильтр
+  </button>
+</form>

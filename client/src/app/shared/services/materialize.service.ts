@@ -1,4 +1,4 @@
-import { ElementRef } from "@angular/core";
+import { ElementRef } from '@angular/core';
 
 declare var M
 
@@ -16,11 +16,11 @@ export interface MaterializeDatepicker extends MaterializeInstance {
 
 export class MaterializeService {
 
-  static toast(message: string) {
+  static toast(message: string): void {
     M.toast({html: message})
   }
 
-  static initFloatButton(elementRef: ElementRef) {
+  static initFloatButton(elementRef: ElementRef): void {
     M.FloatingActionButton.init(elementRef.nativeElement)
   }
 
@@ -30,6 +30,10 @@ export class MaterializeService {
 
   static initModal(modalRef: ElementRef): MaterializeInstance {
     return M.Modal.init(modalRef.nativeElement)
+  }
+
+  static initSelect(modalRef: ElementRef): MaterializeInstance {
+    return M.FormSelect.init(modalRef.nativeElement)
   }
 
   static initTooltip(modalRef: ElementRef): MaterializeInstance {
@@ -46,5 +50,9 @@ export class MaterializeService {
 
   static iniTapTarget(ref: ElementRef): MaterializeInstance {
     return M.TapTarget.init(ref.nativeElement)
+  }
+
+  static initSidenav(ref: ElementRef): MaterializeInstance {
+    return M.Sidenav.init(ref.nativeElement)
   }
 }

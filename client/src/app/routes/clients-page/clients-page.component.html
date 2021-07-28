@@ -1,0 +1,94 @@
+<div class="page-title">
+  <h4>База клиентов</h4>
+  <div class="header-btn">
+    <button class="waves-effect btn grey darken-1" (click)="openAddClientModal()">
+      Добавить клиента
+    </button>
+    <button class="btn btn-small"
+            [class.active]="isFilterVisible"
+            [class.red]="isFiltered()"
+            (click)="isFilterVisible = !isFilterVisible">
+      <i class="material-icons">search</i>
+    </button>
+  </div>
+</div>
+
+<app-clients-filter *ngIf="isFilterVisible"
+                    (applyFilter)="applyFilter($event)">
+</app-clients-filter>
+
+<ng-container *ngIf="!reloading; else reloadingBlock">
+
+  <ng-container *ngIf="clients.length > 0; else empty">
+
+    <app-clients-list [clients]="clients"></app-clients-list>
+
+    <div class="center mb2" *ngIf="!noMoreClients">
+      <button class="btn waves-effect grey darken-1 btn-small"
+              *ngIf="!loading; else loader"
+              (click)="loadMore()">
+        Загрузить еще
+      </button>
+      <ng-template #loader>
+        <app-loader></app-loader>
+      </ng-template>
+    </div>
+
+  </ng-container>
+
+  <ng-template #empty>
+    <app-loader></app-loader>
+  </ng-template>
+
+</ng-container>
+
+<ng-template #reloadingBlock>
+  <div class="center">
+    Клиентов пока нет...
+  </div>
+</ng-template>
+
+<div class="modal" #addClientModal>
+  <div class="modal-content">
+    <h4>Добавление нового клиента</h4>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">account_circle</i>
+          <input type="text" class="validate" formControlName="name">
+          <label>Имя</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">account_circle</i>
+          <input type="text" class="validate" formControlName="surname">
+          <label>Фамилия</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">account_circle</i>
+          <input type="text" class="validate" formControlName="lastname">
+          <label>Отчество</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">phone</i>
+          <input type="tel" class="validate" formControlName="phone">
+          <label>Телефон</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <input type="email" class="validate" formControlName="email">
+          <label>Email</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-close waves-effect waves-green btn-flat" type="button">
+      Отмена
+    </button>
+    <button class="waves-effect waves-green btn-small" type="submit"
+            [disabled]="form.invalid || form.disabled"
+            (click)="createClient()">
+      Добавить
+    </button>
+  </div>
+</div>

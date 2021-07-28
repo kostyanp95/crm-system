@@ -8,7 +8,8 @@ const orderSchema = new Schema({
     },
     order: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     list: [
         {
@@ -23,11 +24,14 @@ const orderSchema = new Schema({
             }
         }
     ],
+    client: {
+        ref: 'clients',
+        type: Schema.Types.ObjectId
+    },
     user: {
         ref: 'users',
         type: Schema.Types.ObjectId
     }
-
 })
 
 module.exports = mongoose.model('orders', orderSchema)

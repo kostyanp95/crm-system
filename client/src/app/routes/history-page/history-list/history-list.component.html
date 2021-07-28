@@ -1,6 +1,9 @@
 <div id="order-list" class="modal modal-fixed-footer" #modal>
   <div class="modal-content" *ngIf="selectedOrder">
-    <h4 class="mb1">Заказ №{{ selectedOrder.order }}</h4>
+    <h4 class="mb1">Заказ №
+      {{ selectedOrder.order }} <br>
+      Клиент: {{ selectedOrder.client.name + ' ' + selectedOrder.client.surname }}
+    </h4>
     <table class="highlight">
       <thead>
       <tr>
@@ -33,18 +36,20 @@
   <thead>
   <tr>
     <th>№</th>
+    <th>Работник</th>
     <th>Дата</th>
-    <th>Время</th>
+    <th>Клиент</th>
     <th>Сумма</th>
-    <th></th>
+    <th>Подробности</th>
   </tr>
   </thead>
 
   <tbody>
   <tr *ngFor="let order of orders">
     <td>{{ order.order }}</td>
-    <td>{{ order.date | date:'dd.MM.yyy'}}</td>
-    <td>{{ order.date | date:'HH:mm:ss'}}</td>
+    <td>{{ order.user.name }}</td>
+    <td>{{ order.date | date:'dd.MM.yyy HH:mm' }}</td>
+    <td>{{ order.client.name + ' ' + order.client.surname }}</td>
     <td>{{ computePrice(order) }} ₽</td>
     <td>
       <button class="btn btn-small grey darken-1" (click)="selectOrder(order)">

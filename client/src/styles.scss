@@ -1,2 +1,26 @@
 @import "~materialize-css/dist/css/materialize.min.css";
 @import "theme/styles.min.css";
+
+.float-btn {
+  visibility: hidden;
+}
+
+.tap-target-wrapper.open .float-btn {
+  visibility: visible;
+}
+
+.tap-target-content {
+  width: 300px;
+}
+
+.skeleton-image-path {
+  fill: #bfbfbf;
+}
+
+.modal {
+  max-height: 80% !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

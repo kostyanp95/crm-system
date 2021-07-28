@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
-import { Router } from "@angular/router";
-import { MaterializeService } from "../../services/materialize.service";
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { MaterializeInstance, MaterializeService } from '../../services/materialize.service';
 
 @Component({
   selector: 'app-site-layout',
@@ -10,7 +10,9 @@ import { MaterializeService } from "../../services/materialize.service";
 })
 export class SiteLayoutComponent implements AfterViewInit {
 
-  @ViewChild('floatingButton') floatingButton
+  @ViewChild('floatingButton') floatingButton: ElementRef
+  @ViewChild('sidenav') sidenavRef: ElementRef
+  sidenav: MaterializeInstance
 
   listLinks = [
     {
@@ -22,16 +24,20 @@ export class SiteLayoutComponent implements AfterViewInit {
       name: 'Аналитика'
     },
     {
+      url: '/clients',
+      name: 'Клиенты'
+    },
+    {
       url: '/history',
-      name: 'История'
+      name: 'История заказов'
     },
     {
       url: '/order',
-      name: 'Заказ'
+      name: 'Новый заказ'
     },
     {
       url: '/categories',
-      name: 'Ассортимент'
+      name: 'Категории товаров и услуг'
     }
   ]
 
@@ -41,11 +47,20 @@ export class SiteLayoutComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     MaterializeService.initFloatButton(this.floatingButton)
+    this.sidenav = MaterializeService.initSidenav(this.sidenavRef)
   }
 
   logout(event: Event): void {
     event.preventDefault()
     this.authService.logOut()
     this.router.navigate(['/login'])
+  }
+
+  openSidenav(): void {
+    this.sidenav.open()
+  }
+
+  closeSidenav(): void {
+    this.sidenav.close()
   }
 }

@@ -1,42 +1,43 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthLayoutComponent } from "./shared/layouts/auth-layout/auth-layout.component";
-import { SiteLayoutComponent } from "./shared/layouts/site-layout/site-layout.component";
-import { LoginPageComponent } from "./routes/login-page/login-page.component";
-import { RegisterPageComponent } from "./routes/register-page/register-page.component";
-import { AuthGuard } from "./shared/guards/auth.guard";
-import { OverviewPageComponent } from "./routes/overview-page/overview-page.component";
-import { HistoryPageComponent } from "./routes/history-page/history-page.component";
-import { OrderPageComponent } from "./routes/order-page/components/order-page.component";
-import { CategoriesPageComponent } from "./routes/categories-page/categories-page.component";
-import { CategoriesFormComponent } from "./routes/categories-page/categories-form/categories-form.component";
+import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
+import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
+import { LoginPageComponent } from './routes/login-page/login-page.component';
+import { RegisterPageComponent } from './routes/register-page/register-page.component';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { OverviewPageComponent } from './routes/overview-page/overview-page.component';
+import { HistoryPageComponent } from './routes/history-page/history-page.component';
+import { OrderPageComponent } from './routes/order-page/components/order-page.component';
+import { CategoriesPageComponent } from './routes/categories-page/categories-page.component';
+import { CategoriesFormComponent } from './routes/categories-page/categories-form/categories-form.component';
 import { OrderCategoriesComponent } from './routes/order-page/components/order-categories/order-categories.component';
 import { OrderPositionsComponent } from './routes/order-page/components/order-positions/order-positions.component';
 import { AnalyticsPageComponent } from './routes/analytics-page/analytics-page.component';
+import { ClientsPageComponent } from './routes/clients-page/clients-page.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: AuthLayoutComponent,
     children: [
       {
-        path: "",
+        path: '',
         redirectTo: '/login',
         pathMatch: 'full'
       },
       {
-        path: "login",
+        path: 'login',
         component: LoginPageComponent,
       },
       {
-        path: "register",
+        path: 'register',
         component: RegisterPageComponent,
       },
     ]
   },
   {
-    path: "",
+    path: '',
     component: SiteLayoutComponent,
     canActivate: [
       AuthGuard
@@ -49,6 +50,10 @@ const routes: Routes = [
       {
         path: 'analytics',
         component: AnalyticsPageComponent
+      },
+      {
+        path: 'clients',
+        component: ClientsPageComponent
       },
       {
         path: 'history',

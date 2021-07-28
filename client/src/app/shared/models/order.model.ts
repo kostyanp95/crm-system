@@ -1,8 +1,12 @@
+import { Client } from './client.model';
+import { User } from './interfaces';
+
 export interface Order {
   date?: Date
   order?: number
   list: Array<OrderPosition>
-  user?: string
+  user?: User
+  client?: Client
   _id?: string
 }
 

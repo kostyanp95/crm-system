@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MaterializeInstance, MaterializeService } from "../../shared/services/materialize.service";
+import { MaterializeInstance, MaterializeService } from '../../shared/services/materialize.service';
 import { OrdersService } from '../../shared/services/orders.service';
 import { Subscription } from 'rxjs';
 import { Order } from '../../shared/models/order.model';
 import { Filter } from '../../shared/models/filter.model';
 
-const STEP = 2
+const STEP = 10
 
 @Component({
   selector: 'app-history-page',
@@ -15,15 +15,15 @@ const STEP = 2
 export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('tooltip') tooltipRef: ElementRef
   tooltip: MaterializeInstance
-  isFilterVisible: boolean = false
+  isFilterVisible = false
   orders: Array<Order> = []
   filter: Filter = {}
-  offset: number = 0
+  offset = 0
   limit: number = STEP
   subscription: Subscription
-  loading: boolean = false
-  reloading: boolean = false
-  noMoreOrders: boolean = false
+  loading = false
+  reloading = false
+  noMoreOrders = false
 
   constructor(private ordersService: OrdersService) {
   }

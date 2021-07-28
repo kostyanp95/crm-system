@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +9,7 @@ import { LoginPageComponent } from './routes/login-page/login-page.component';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { RegisterPageComponent } from './routes/register-page/register-page.component';
-import { TokenInterceptor } from "./shared/interceptors/token.interceptor";
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { OverviewPageComponent } from './routes/overview-page/overview-page.component';
 import { HistoryPageComponent } from './routes/history-page/history-page.component';
 import { OrderPageComponent } from './routes/order-page/components/order-page.component';
@@ -24,6 +24,9 @@ import { OrderPositionsComponent } from './routes/order-page/components/order-po
 import { AnalyticsPageComponent } from './routes/analytics-page/analytics-page.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ClientsPageComponent } from './routes/clients-page/clients-page.component';
+import { ClientsListComponent } from './routes/clients-page/clients-list/clients-list.component';
+import { ClientsFilterComponent } from './routes/clients-page/clients-filter/clients-filter.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { environment } from '../environments/environment';
     HistoryListComponent,
     HistoryFilterComponent,
     OrderCategoriesComponent,
-    OrderPositionsComponent
+    OrderPositionsComponent,
+    ClientsPageComponent,
+    ClientsListComponent,
+    ClientsFilterComponent
   ],
   imports: [
     BrowserModule,

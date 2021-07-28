@@ -1,27 +1,29 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { switchMap } from "rxjs/operators";
-import { Observable, of } from "rxjs";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
-import { CategoriesService } from "../../../shared/services/categories.service";
-import { MaterializeService } from "../../../shared/services/materialize.service";
-import { Category } from "../../../shared/models/category.model";
+import { CategoriesService } from '../../../shared/services/categories.service';
+import { MaterializeInstance, MaterializeService } from '../../../shared/services/materialize.service';
+import { Category } from '../../../shared/models/category.model';
 
 @Component({
   selector: 'app-categories-form',
   templateUrl: './categories-form.component.html',
   styleUrls: ['./categories-form.component.scss']
 })
-export class CategoriesFormComponent implements OnInit {
+export class CategoriesFormComponent implements OnInit, AfterViewInit {
 
   @ViewChild('inputFile') uploadFileRef: ElementRef
+  @ViewChild('largeFileWarning') largeFileWarningRef: ElementRef
 
   form: FormGroup
-  isNew: boolean = true
+  isNew = true
   category: Category
   categoryImage: File
   categoryImagePreview: string | ArrayBuffer | null
+  largeFileWarning: MaterializeInstance
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
@@ -48,9 +50,9 @@ export class CategoriesFormComponent implements OnInit {
       .pipe(
         switchMap(
           (params: Params) => {
-            if (params['id']) {
+            if (params.id) {
               this.isNew = false
-              return this.categoriesService.geById(params['id'])
+              return this.categoriesService.geById(params.id)
             }
             return of(null)
           }
@@ -62,7 +64,7 @@ export class CategoriesFormComponent implements OnInit {
             this.form.patchValue({
               name: category.name
             })
-            this.categoryImagePreview = category.imageSrc
+            this.categoryImagePreview = category.image
             MaterializeService.updateTextFields()
           }
         },
@@ -70,6 +72,10 @@ export class CategoriesFormComponent implements OnInit {
       )
 
     this.form.enable()
+  }
+
+  ngAfterViewInit(): void {
+    this.largeFileWarning = MaterializeService.initModal(this.largeFileWarningRef)
   }
 
   formInit(): void {
@@ -91,6 +97,11 @@ export class CategoriesFormComponent implements OnInit {
       this.categoryImagePreview = reader.result
     }
 
+    const imageMbSize = this.categoryImage.size / 1024 / 1024
+    if (imageMbSize > 2) {
+      this.largeFileWarning.open()
+    }
+
     reader.readAsDataURL(this.categoryImage)
   }
 
@@ -101,9 +112,9 @@ export class CategoriesFormComponent implements OnInit {
     const name = this.form.get('name').value
 
     if (this.isNew) {
-      observable$ = this.categoriesService.create(name, this.categoryImage)
+      observable$ = this.categoriesService.create(name, this.categoryImagePreview)
     } else {
-      observable$ = this.categoriesService.update(this.category._id, name, this.categoryImage)
+      observable$ = this.categoriesService.update(this.category._id, name, this.categoryImagePreview)
     }
 
     observable$
@@ -123,11 +134,13 @@ export class CategoriesFormComponent implements OnInit {
   deleteCategory(): void {
     const decision = window.confirm(`Вы уверены, что хотите удалить категорию ${this.category.name}?`)
 
-    decision ? this.categoriesService.delete(this.category._id)
-      .subscribe(
-        response => MaterializeService.toast(response.message),
-        error => MaterializeService.toast(error.error.message),
-        () => this.router.navigate(['/categories'])
-      ) : null
+    if (decision) {
+      this.categoriesService.delete(this.category._id)
+        .subscribe(
+          response => MaterializeService.toast(response.message),
+          error => MaterializeService.toast(error.error.message),
+          () => this.router.navigate(['/categories'])
+        )
+    }
   }
 }

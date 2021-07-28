@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Order } from '../../../shared/models/order.model';
 import { MaterializeInstance, MaterializeService } from '../../../shared/services/materialize.service';
 
