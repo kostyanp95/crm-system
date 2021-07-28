@@ -1,0 +1,113 @@
+<table class="highlight mb2">
+  <thead>
+  <tr>
+    <th>№</th>
+    <th>Имя</th>
+    <th>Заказы клиента</th>
+    <th>Телефон</th>
+    <th>Редактировать</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let client of clients">
+    <td>{{ client.order }}</td>
+    <td>{{ client.name + ' ' + client.surname }}</td>
+    <td>
+      <button class="btn btn-small grey darken-1" (click)="openClientOrdersModal(client)">
+        <i class="material-icons">open_in_new</i>
+      </button>
+    </td>
+    <td>{{ client.phone }}</td>
+    <td>
+      <button class="btn btn-small grey darken-1" (click)="openEditClientModal(client)">
+        <i class="material-icons">open_in_new</i>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="modal" #clientModal>
+  <ng-container
+    [ngTemplateOutlet]="editClientModal ? editModal : ordersClientModal ? ordersModal : null"></ng-container>
+</div>
+
+<ng-template #editModal>
+  <div class="modal-content" *ngIf="editClientModal">
+    <h4>Редактирование клиента</h4>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">account_circle</i>
+          <input type="text" class="validate" formControlName="name">
+          <label>Имя</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">account_circle</i>
+          <input type="text" class="validate" formControlName="surname">
+          <label>Фамилия</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">account_circle</i>
+          <input type="text" class="validate" formControlName="lastname">
+          <label>Отчество</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">phone</i>
+          <input type="tel" class="validate" formControlName="phone">
+          <label>Телефон</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <input type="email" class="validate" formControlName="email">
+          <label>Email</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-action waves-effect waves-black btn-flat" (click)="closeModals()">
+      Закрыть
+    </button>
+    <button class="modal-action waves-effect waves-black btn-small" (click)="editClient()"
+            [disabled]="form?.pristine || form?.invalid || form?.disabled">
+      Редактировать
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #ordersModal>
+  <div class="modal-content" *ngIf="ordersClientModal">
+    <h4 class="mb1">Заказы клиента <br>
+      {{ selectedClient.name + ' ' + selectedClient.surname }}
+    </h4>
+    <table class="highlight">
+      <thead>
+      <tr>
+        <th>№</th>
+        <th>Дата</th>
+        <th>Цена</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <ng-container *ngFor="let order of selectedOrders">
+        <tr *ngIf="order">
+          <td>{{ order?.order }}</td>
+          <td>{{ order?.date | date:'dd.MM.yyy HH:mm' }}</td>
+          <td>{{ computeOrderPrice(order) }} ₽</td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+    <div class="order-summary">
+      <p>Общая прибыль от клиента <strong> {{ computeSumOrdersPrices(selectedOrders) }} ₽</strong></p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-action waves-effect waves-black btn-flat" (click)="closeModals()">
+      Закрыть
+    </button>
+  </div>
+</ng-template>

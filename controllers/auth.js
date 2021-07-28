@@ -12,7 +12,10 @@ const errorHandler = require('../utils/errorHandler')
  * @returns {Promise<void>}
  */
 module.exports.login = async function (req, res) {
-    const candidate = await User.findOne({ email: req.body.email })
+    const candidate = await User.findOne({
+        name: req.body.name,
+        surname: req.body.surname
+    })
 
     if (candidate) {
         // Проверка пароля
@@ -20,22 +23,23 @@ module.exports.login = async function (req, res) {
         if (passwordResult) {
             // Генерация токена, пароли совпали
             const token = jwt.sign({
-                email: candidate.email,
+                name: candidate.name,
+                surname: candidate.surname,
                 userId: candidate._id
-            }, keys.jwt, { expiresIn: 3600 })
+            }, keys.jwt, {expiresIn: 3600 * 30})
             res.status(200).json({
                 token: `Bearer ${token}`
             })
         } else {
             // Пароли не совпали
             res.status(401).json({
-                message: 'Пароли не совпадают...'
+                message: 'Не верный пароль.'
             })
         }
     } else {
         // Пользователь не существует
         res.status(404).json({
-            message: 'Пользователь с таким email не найден.'
+            message: 'Пользователь не найден.'
         })
     }
 }
@@ -47,20 +51,24 @@ module.exports.login = async function (req, res) {
  * @returns {Promise<void>}
  */
 module.exports.register = async function (req, res) {
-    const candidate = await User.findOne({ email: req.body.email })
+    const candidate = await User.findOne({
+        name: req.body.name,
+        surname: req.body.surname
+    })
 
     // если юзер существует
     if (candidate) {
         // возвращаем ошибку
         res.status(409).json({
-            message: 'Такой email уже занят.'
+            message: 'Такой пользователь уже есть.'
         })
     } else {
         // иначе, создаем юзера
         const salt = bcrypt.genSaltSync(10)
         const password = req.body.password
         const user = new User({
-            email: req.body.email,
+            name: req.body.name,
+            surname: req.body.surname,
             password: bcrypt.hashSync(password, salt)
         })
 

@@ -4,6 +4,7 @@
     "codelyzer"
   ],
   "rules": {
+    "no-string-literal": false,
     "align": {
       "options": [
         "parameters",
@@ -66,13 +67,10 @@
     ],
     "quotemark": [
       true,
-      "single"
+      "single",
+      "avoid-escape"
     ],
-    "semicolon": {
-      "options": [
-        "always"
-      ]
-    },
+    "semicolon": false,
     "space-before-function-paren": {
       "options": {
         "anonymous": "never",
