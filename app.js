@@ -40,10 +40,6 @@ app.use('/api/client', clientRoutes)
 
 app.enable('trust proxy')
 app.use((req, res, next) => {
-    console.log('http: ', 'https://' + req.headers.host + req.url)
-    console.log('req.headers.host: ', req.headers.host)
-    console.log('req.url: ', req.url)
-    console.log('https: ', 'https://' + req.headers.host + req.url)
     req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
 })
 
