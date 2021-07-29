@@ -16,19 +16,19 @@ const positionRoutes = require('./routes/position')
 const clientRoutes = require('./routes/client')
 
 mongoose.connect(keys.mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
 })
-.then(() => console.info('MongoDB connected.'))
-.catch(error => console.error(error))
+    .then(() => console.info('MongoDB connected.'))
+    .catch(error => console.error(error))
 
 app.use(passport.initialize())
 require('./middleware/passport')(passport)
 
 app.use(morgan('dev'))
-app.use(bodyParser.json({ limit: "50mb" }))
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }))
+app.use(bodyParser.json({limit: "50mb"}))
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}))
 app.use(cors())
 
 app.use('/api/auth', authRoutes)
@@ -39,10 +39,10 @@ app.use('/api/position', positionRoutes)
 app.use('/api/client', clientRoutes)
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/dist/client'))
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client/dist/client/index.html'))
-  })
+    app.use(express.static('client/dist/client'))
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client/dist/client/index.html'))
+    })
 }
 
 module.exports = app
