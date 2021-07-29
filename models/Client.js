@@ -30,6 +30,7 @@ const clientSchema = new Schema({
     },
     order: {
         type: Number,
+        unique: true,
         required: true
     },
     user: {
