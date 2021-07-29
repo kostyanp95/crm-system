@@ -29,7 +29,7 @@
   ],
   "dataGroups": [
     {
-      "name": "crm",
+      "name": "CRM-System",
       "urls": [
         "https://obscure-wildwood-16920.herokuapp.com/**"
       ],

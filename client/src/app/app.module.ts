@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,8 +24,6 @@ import { HistoryFilterComponent } from './routes/history-page/history-filter/his
 import { OrderCategoriesComponent } from './routes/order-page/components/order-categories/order-categories.component';
 import { OrderPositionsComponent } from './routes/order-page/components/order-positions/order-positions.component';
 import { AnalyticsPageComponent } from './routes/analytics-page/analytics-page.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 import { ClientsPageComponent } from './routes/clients-page/clients-page.component';
 import { ClientsListComponent } from './routes/clients-page/clients-list/clients-list.component';
 import { ClientsFilterComponent } from './routes/clients-page/clients-filter/clients-filter.component';
@@ -57,12 +57,7 @@ import { ClientsFilterComponent } from './routes/clients-page/clients-filter/cli
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {
