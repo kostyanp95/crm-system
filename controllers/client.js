@@ -38,8 +38,6 @@ module.exports.getAll = async function (req, res) {
 
         let promise = []
 
-        console.log(clients)
-
         clients.forEach(client => {
             promise = client.orders.map(async (order, index) => {
                 client.orders[index] = await Order.findById(order._id)
@@ -47,8 +45,6 @@ module.exports.getAll = async function (req, res) {
         })
 
         await Promise.all(promise)
-
-        console.log(clients)
 
         res.status(200).json(clients)
 
