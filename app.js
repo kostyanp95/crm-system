@@ -38,6 +38,15 @@ app.use('/api/order', orderRoutes)
 app.use('/api/position', positionRoutes)
 app.use('/api/client', clientRoutes)
 
+app.enable('trust proxy')
+app.use((req, res, next) => {
+    console.log('http: ', 'https://' + req.headers.host + req.url)
+    console.log('req.headers.host: ', req.headers.host)
+    console.log('req.url: ', req.url)
+    console.log('https: ', 'https://' + req.headers.host + req.url)
+    req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
+})
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist/client'))
     app.get('*', (req, res) => {
