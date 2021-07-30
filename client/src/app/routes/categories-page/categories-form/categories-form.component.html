@@ -16,7 +16,7 @@
 </div>
 
 <div class="row">
-  <form class="col s12 l6"
+  <form class="col-12 col-sm-6 order-1 order-sm-0"
         [formGroup]="form"
         (ngSubmit)="onSubmit()">
     <div class="input-field">
@@ -53,7 +53,7 @@
     </div>
   </form>
 
-  <div class="col s12 l4 center">
+  <div class="col-12 col-sm-6 order-0 order-sm-1 center">
     <img class="responsive-img" style="height: 200px"
          *ngIf="categoryImagePreview" [src]="categoryImagePreview">
     <div *ngIf="!categoryImagePreview" style="margin: 0 auto;">
