@@ -26,7 +26,7 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
   form: FormGroup
   isNewClient = false
   clients: Array<Client> = []
-  selectedClientId: string
+  selectedClientId: string = null
   selectedClient: Client
 
   constructor(private router: Router,
@@ -57,10 +57,10 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   initClientForm(): void {
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      phone: ['', Validators.required],
-      comment: ''
+      name: [null, Validators.required],
+      surname: [null, Validators.required],
+      phone: [null, Validators.required],
+      comment: null
     })
   }
 

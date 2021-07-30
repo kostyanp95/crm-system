@@ -1,33 +1,42 @@
-<div *ngIf="positions$ | async as positions; else loader">
-  <table class="highlight" *ngIf="positions.length; else empty">
-    <thead>
-    <tr>
-      <th>Название</th>
-      <th>Стоимость</th>
-      <th>Количество</th>
-      <th></th>
-    </tr>
-    </thead>
+<div class="container-fluid p-0">
+  <div class="row">
+    <div class="col-12">
 
-    <tbody>
-    <tr *ngFor="let position of positions">
-      <td>{{ position.name }}</td>
-      <td>{{ position.cost }} руб.</td>
-      <td>
-        <div class="input-field inline order-position-input">
-          <input type="number" min="1" [(ngModel)]="position.quantity">
-        </div>
-      </td>
-      <td>
-        <button class="btn waves-effect wavers-light btn-small"
-                [disabled]="!position.quantity"
-                (click)="addToOrder(position)">
-          Добавить
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+      <div class="table" *ngIf="positions$ | async as positions; else loader">
+        <table class="highlight" *ngIf="positions.length; else empty">
+          <thead>
+          <tr>
+            <th>Название</th>
+            <th>Стоимость</th>
+            <th class="d-none d-sm-table-cell">Количество</th>
+            <th class="d-table-cell d-sm-none">Кол-во</th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let position of positions">
+            <td>{{ position.name }}</td>
+            <td>{{ position.cost }} руб.</td>
+            <td>
+              <div class="input-field inline order-position-input">
+                <input type="number" min="1" [(ngModel)]="position.quantity">
+              </div>
+            </td>
+            <td>
+              <button class="btn waves-effect wavers-light btn-small"
+                      [disabled]="!position.quantity"
+                      (click)="addToOrder(position)">
+                <i class="material-icons">add</i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
 
   <ng-template #empty>
     <div class="center">

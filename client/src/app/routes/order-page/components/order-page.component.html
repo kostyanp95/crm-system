@@ -1,19 +1,29 @@
-<div class="page-title">
-  <h4 *ngIf="isRoot">
-    Заказ
-  </h4>
-  <h4 *ngIf="!isRoot">
-    <a routerLink="/order">
-      Заказ
-    </a>
-    <i class="material-icons">keyboard_arrow_right</i>
-    Добавить продукцию
-  </h4>
-  <button class="waves-effect btn grey darken-1"
-          (click)="open()"
-          [disabled]="modalOrderService.list.length === 0">
-    Завершить
-  </button>
+<div class="page-title d-flex">
+  <div class="row w-100">
+    <div class="col-12 col-md-auto">
+
+      <h4 *ngIf="isRoot">
+        Заказ
+      </h4>
+      <div *ngIf="!isRoot">
+        <h4 routerLink="/order">
+          Заказ
+          <i class="material-icons">keyboard_arrow_right</i>
+          Добавить продукцию
+        </h4>
+      </div>
+
+    </div>
+
+    <div class="col-12 col-md-auto">
+      <button class="waves-effect btn grey darken-1 mt-4 mt-md-0 ml-auto justify-content-end d-flex"
+              (click)="open()"
+              [disabled]="modalOrderService.list.length === 0">
+        Создать заказ
+      </button>
+    </div>
+
+  </div>
 </div>
 
 <router-outlet></router-outlet>
@@ -25,7 +35,8 @@
       <thead>
       <tr>
         <th>Название</th>
-        <th>Количество</th>
+        <th class="d-none d-sm-table-cell">Количество</th>
+        <th class="d-table-cell d-sm-none">Кол-во</th>
         <th>Цена</th>
         <th></th>
       </tr>
@@ -68,6 +79,11 @@
           </option>
         </select>
       </div>
+      <div class="input-field col s12 w-100">
+        <i class="material-icons prefix">mode_edit</i>
+        <textarea id="textarea2" class="materialize-textarea" formControlName="comment"></textarea>
+        <label for="textarea2">Комментарий</label>
+      </div>
     </div>
 
     <div class="new-client" *ngIf="isNewClient">
@@ -77,24 +93,27 @@
         </p>
       </div>
       <form [formGroup]="form">
-        <div class="input-field inline order-position-input">
-          <i class="material-icons prefix">account_circle</i>
-          <input type="text" formControlName="name">
-          <label>Имя</label>
-        </div>
-        <div class="input-field inline order-position-input">
-          <input type="text" formControlName="surname">
-          <label>Фамилия</label>
-        </div>
-        <div class="input-field order-position-input">
-          <i class="material-icons prefix">phone</i>
-          <input type="tel" formControlName="phone">
-          <label>Телефон</label>
-        </div>
-        <div class="input-field order-position-input">
-          <i class="material-icons prefix">mode_edit</i>
-          <textarea id="textarea1" class="materialize-textarea" formControlName="comment"></textarea>
-          <label for="textarea1">Комментарий</label>
+        <div>
+          <div class="input-field col s12 w-100">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="name" type="text" class="validate" formControlName="name">
+            <label for="name">Имя</label>
+          </div>
+          <div class="input-field col s12 w-100">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="surname" type="text" class="validate" formControlName="surname">
+            <label for="surname">Фамилия</label>
+          </div>
+          <div class="input-field col s12 w-100">
+            <i class="material-icons prefix">phone</i>
+            <input id="tel" type="tel" formControlName="phone">
+            <label for="tel">Телефон</label>
+          </div>
+          <div class="input-field col s12 w-100">
+            <i class="material-icons prefix">mode_edit</i>
+            <textarea id="textarea1" class="materialize-textarea" formControlName="comment"></textarea>
+            <label for="textarea1">Комментарий</label>
+          </div>
         </div>
       </form>
     </div>
@@ -108,7 +127,7 @@
     </button>
     <button class="modal-action btn waves-effect"
             (click)="submit()"
-            [disabled]="modalOrderService.list.length === 0 || pending">
+            [disabled]="modalOrderService.list.length === 0 || form.get('name').value || selectedClientId === null || pending">
       Подтвердить
     </button>
   </div>
