@@ -1,26 +1,26 @@
 <form [formGroup]="form" class="filter">
-  <div class="fr">
-    <div class="col order">
+  <div class="row">
+    <div class="col-12 col-sm-auto order">
       <div class="input-field inline order-position-input">
-        <input type="number" min="1" formControlName="order">
-        <label>Номер клиента</label>
+        <input id="numberClient" type="number" min="1" formControlName="order" class="w-100">
+        <label for="numberClient">Номер клиента</label>
       </div>
     </div>
-    <div class="col order">
-      <div class="input-field inline order-position-input">
-        <input type="text" formControlName="name">
-        <label>Имя клиента</label>
+    <div class="col-12 col-sm-auto order">
+      <div class="input-field inline order-position-input mt-3 mt-sm-0">
+        <input id="nameClient" type="text" formControlName="name" class="w-100">
+        <label for="nameClient">Имя клиента</label>
       </div>
     </div>
-    <div class="col filter-pickers">
-      <div class="input-field">
-        <input type="text" #dateRegister formControlName="registrationDate">
-        <label>Дата регистрации</label>
+    <div class="col-12 col-sm-auto filter-pickers">
+      <div class="input-field inline order-position-input mt-3 mt-sm-0">
+        <input id="registrationDate" type="text" #dateRegister formControlName="registrationDate" class="w-100">
+        <label for="registrationDate">Дата регистрации</label>
       </div>
     </div>
   </div>
 
   <button class="btn waves-effect wavers-light btn-small" (click)="submitFilter()" [disabled]="!isValid">
-    Применить фильтр
+    Поиск
   </button>
 </form>

@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MaterializeInstance, MaterializeService } from '../../shared/services/materialize.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OrdersService } from '../../shared/services/orders.service';
 import { Subscription } from 'rxjs';
 import { Order } from '../../shared/models/order.model';
@@ -12,9 +11,8 @@ const STEP = 10
   templateUrl: './history-page.component.html',
   styleUrls: ['./history-page.component.scss']
 })
-export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('tooltip') tooltipRef: ElementRef
-  tooltip: MaterializeInstance
+export class HistoryPageComponent implements OnInit, OnDestroy {
+
   isFilterVisible = false
   orders: Array<Order> = []
   filter: Filter = {}
@@ -30,15 +28,6 @@ export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.getListOrders();
-  }
-
-  ngAfterViewInit(): void {
-    this.tooltip = MaterializeService.initTooltip(this.tooltipRef)
-  }
-
-  ngOnDestroy(): void {
-    this.tooltip.destroy()
-    this.subscription.unsubscribe()
   }
 
   private getListOrders(): void {
@@ -74,5 +63,9 @@ export class HistoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isFiltered(): boolean {
     return Object.keys(this.filter).length !== 0
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 }

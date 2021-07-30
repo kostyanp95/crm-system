@@ -1,25 +1,26 @@
 <div class="filter">
-  <div class="fr">
-    <div class="col order">
+  <div class="row">
+    <div class="col-12 col-sm-auto order">
       <div class="input-field inline order-position-input">
         <input type="number" id="number" min="1" [(ngModel)]="order">
         <label for="number">Номер заказа</label>
       </div>
     </div>
-    <div class="col filter-pickers">
-      <div class="input-field">
-        <input type="text" #start>
-        <label>Начало</label>
+    <div class="col-12 col-sm-auto order">
+      <div class="input-field inline order-position-input mt-3 mt-sm-0">
+        <input id="start" type="text" #start>
+        <label for="start">Начало</label>
       </div>
-
-      <div class="input-field" #end>
-        <input type="text">
-        <label>Конец</label>
+    </div>
+    <div class="col-12 col-sm-auto order">
+      <div class="input-field inline order-position-input mt-3 mt-sm-0" #end>
+        <input id="end" type="text">
+        <label for="end">Конец</label>
       </div>
     </div>
   </div>
 
   <button class="btn waves-effect wavers-light btn-small" (click)="submitFilter()" [disabled]="!isValid">
-    Применить фильтр
+    Поиск
   </button>
 </div>

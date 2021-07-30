@@ -1,11 +1,10 @@
 <div class="page-title">
   <h4>История заказов</h4>
-  <button class="btn btn-small" data-tooltip="Открыть фильтр" data-position="left"
-          #tooltip
+  <button class="btn btn-small"
           [class.active]="isFilterVisible"
           [class.red]="isFiltered()"
           (click)="isFilterVisible = !isFilterVisible">
-    <i class="material-icons">filter_list</i>
+    <i class="material-icons">search</i>
   </button>
 </div>
 
@@ -30,13 +29,13 @@
   </ng-container>
 
   <ng-template #empty>
-    <app-loader></app-loader>
+    <div class="center">
+      Заказов пока нет...
+    </div>
   </ng-template>
 
 </ng-container>
 
 <ng-template #reloadingBlock>
-  <div class="center">
-    Заказов пока нет...
-  </div>
+  <app-loader></app-loader>
 </ng-template>

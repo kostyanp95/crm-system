@@ -43,12 +43,19 @@ export class ClientsFilterComponent implements OnInit, OnDestroy, AfterViewInit 
 
   submitFilter(): void {
     const filter: Filter = this.form.getRawValue()
+    const result: Filter = {}
 
     if (this.dateRegister.date) {
       filter.start = this.dateRegister.date
     }
 
-    this.applyFilter.emit(filter)
+    Object.values(filter).forEach(key => {
+      if (key !== null) {
+        filter[key] = key
+      }
+    });
+
+    this.applyFilter.emit(result)
   }
 
   ngAfterViewInit(): void {

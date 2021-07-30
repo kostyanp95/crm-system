@@ -5,7 +5,7 @@ const router = express.Router()
 const controller = require('../controllers/client')
 
 router.get('/', passport.authenticate('jwt', { session: false }), controller.getAll)
-router.post('/', passport.authenticate('jwt', { session: false }), controller.getById)
+router.post('/:id', passport.authenticate('jwt', { session: false }), controller.getById)
 router.post('/', passport.authenticate('jwt', { session: false }), controller.create)
 router.patch('/:id', passport.authenticate('jwt', { session: false }), controller.update)
 

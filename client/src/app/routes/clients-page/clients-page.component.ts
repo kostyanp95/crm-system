@@ -101,6 +101,7 @@ export class ClientsPageComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(newClient => {
           if (newClient) {
             MaterializeService.toast(`Новый клиент ${newClient.name} успешно добавлен!`)
+            this.getClientsList()
           }
           this.addClientModal.close()
         },

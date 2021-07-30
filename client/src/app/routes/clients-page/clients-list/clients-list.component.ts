@@ -71,11 +71,15 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   openClientOrdersModal(client: Client): void {
-    this.editClientModal = false
-    this.ordersClientModal = true
-    this.selectedClient = client
-    this.selectedOrders = client.orders
-    this.clientModal.open()
+    if (client.orders.length > 0) {
+      this.editClientModal = false
+      this.ordersClientModal = true
+      this.selectedClient = client
+      this.selectedOrders = client.orders
+      this.clientModal.open()
+    } else {
+      MaterializeService.toast('У данного клиента еще нет заказов...')
+    }
   }
 
   closeModals(): void {
