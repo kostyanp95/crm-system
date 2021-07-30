@@ -1,5 +1,8 @@
 @import "~materialize-css/dist/css/materialize.min.css";
 @import "theme/styles.min.css";
+@import "~bootstrap/scss/bootstrap-grid";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
 
 .float-btn {
   visibility: hidden;

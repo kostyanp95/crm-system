@@ -1,9 +1,9 @@
 <nav>
-  <div class="nav-wrapper grey darken-1">
-    <a routerLink="/" class="brand-logo">
+  <div class="d-flex justify-content-between nav-wrapper grey darken-1">
+    <a routerLink="/" class="brand-logo position-static">
       CRM
     </a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <ul class="right d-flex">
       <li routerLinkActive="active">
         <a routerLink="login">Вход</a>
       </li>
@@ -14,6 +14,14 @@
   </div>
 </nav>
 
-<div class="auth-block">
-  <router-outlet></router-outlet>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col col-md-6">
+
+      <div class="auth-block w-100">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+  </div>
 </div>
