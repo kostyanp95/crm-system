@@ -51,6 +51,7 @@ module.exports.login = async function (req, res) {
  * @returns {Promise<void>}
  */
 module.exports.register = async function (req, res) {
+    console.log('register: ', req.body)
     const candidate = await User.findOne({
         name: req.body.name,
         surname: req.body.surname

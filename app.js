@@ -1,6 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
-const cors = require("cors")
+const cors = require('cors')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const path = require('path')
@@ -15,7 +15,7 @@ const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
 const clientRoutes = require('./routes/client')
 
-mongoose.connect(keys.mongoURI, {
+mongoose.connect(process.env.NODE_ENV === 'production' ? keys.mongoURI : keys.localMongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true

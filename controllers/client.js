@@ -61,7 +61,6 @@ module.exports.getAll = async function (req, res) {
  */
 module.exports.getById = async function (req, res) {
     try {
-        console.log('getById')
         const client = await Client.findById(req.body.clientId)
 
         const promise = client.orders.map(async (order, index) => {
@@ -79,7 +78,6 @@ module.exports.getById = async function (req, res) {
 
 module.exports.create = async function (req, res) {
     try {
-        console.log('create')
         const lastClient = await Client
             .findOne()
             .sort({date: -1})
