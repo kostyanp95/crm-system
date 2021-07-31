@@ -1,5 +1,5 @@
 <div class="page-title d-flex">
-  <div class="row w-100">
+  <div class="row justify-content-between w-100">
     <div class="col-12 col-md-auto">
 
       <h4 *ngIf="isRoot">
@@ -15,7 +15,7 @@
 
     </div>
 
-    <div class="col-12 col-md-auto">
+    <div class="col-12 col-md-auto ml-md-auto">
       <button class="waves-effect btn grey darken-1 mt-4 mt-md-0"
               (click)="open()"
               [disabled]="modalOrderService.list.length === 0">
