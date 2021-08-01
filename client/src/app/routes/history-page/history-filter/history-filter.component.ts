@@ -22,7 +22,9 @@ export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
   submitFilter(): void {
     const filter: Filter = {}
 
-    this.order ? filter.order = this.order : null
+    if (this.order) {
+      filter.order = this.order
+    }
 
     if (this.start.date) {
       filter.start = this.start.date
@@ -51,7 +53,7 @@ export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    this.start.destroy()
-    this.end.destroy()
+    this.start?.destroy()
+    this.end?.destroy()
   }
 }
