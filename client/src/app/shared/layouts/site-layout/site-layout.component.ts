@@ -29,7 +29,7 @@ export class SiteLayoutComponent implements AfterViewInit {
     },
     {
       url: '/history',
-      name: 'История заказов'
+      name: 'Заказы'
     },
     {
       url: '/order',
