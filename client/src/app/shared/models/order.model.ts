@@ -8,6 +8,7 @@ export interface Order {
   user?: User
   client?: Client
   comment?: string
+  status: OrderStatus
   _id?: string
 }
 
@@ -16,4 +17,10 @@ export interface OrderPosition {
   quantity: number
   cost: number
   _id?: string
+}
+
+export enum OrderStatus {
+  TAKE = 'Принят',
+  IN_WORK = 'В работе',
+  COMPLETED = 'Завершен'
 }

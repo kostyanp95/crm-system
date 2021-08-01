@@ -34,6 +34,10 @@ const orderSchema = new Schema({
     },
     comment: {
         type: String
+    },
+    status: {
+        type: String,
+        required: true
     }
 })
 

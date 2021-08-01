@@ -133,10 +133,6 @@
   </div>
 
   <div class="modal-footer">
-    {{ modalOrderService.list.length === 0 }}
-    {{ !selectedClientId }}
-    {{ form.invalid }} <br>
-    {{ modalOrderService.list.length === 0 || !selectedClientId && form.invalid }}
     <button class="modal-action waves-effect waves-black btn-flat"
             [disabled]="pending"
             (click)="cancel()">

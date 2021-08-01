@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { NavigationEnd, Router } from '@angular/router';
 import { MaterializeInstance, MaterializeService } from '../../../shared/services/materialize.service';
 import { ModalOrderService } from '../services/modal-order.service';
-import { Order, OrderPosition } from '../../../shared/models/order.model';
+import { Order, OrderPosition, OrderStatus } from '../../../shared/models/order.model';
 import { OrdersService } from '../../../shared/services/orders.service';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -85,11 +85,12 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isNewClient) {
       client = this.form.getRawValue()
       order.client = client
+      order.status = OrderStatus.TAKE
       console.log('new client: ', client)
     } else {
-
       order['clientId'] = this.selectedClientId
       order['comment'] = this.comment
+      order.status = OrderStatus.TAKE
       console.log('clientId: ', this.selectedClientId)
     }
 
