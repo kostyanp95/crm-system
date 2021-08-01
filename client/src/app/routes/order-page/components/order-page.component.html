@@ -29,7 +29,7 @@
 
 <div #modal class="modal modal-fixed-footer">
   <div class="modal-content">
-    <h4 class="mb1">Ваш заказ</h4>
+    <h4 class="mb1">Новый заказ</h4>
     <table class="highlight">
       <thead>
       <tr>
@@ -70,13 +70,14 @@
           Выберите клиента:
         </p>
       </div>
-      <div class="col s12">
-        <label>Клиенты из базы</label>
-        <select class="browser-default" #select [(ngModel)]="selectedClientId">
-          <option [value]="client._id" *ngFor="let client of clients">
-            {{ client.name + ' ' + client.surname }}, телефон: {{ client.phone }}
+      <div class="input-field col s12 w-75">
+        <i class="material-icons prefix">account_circle</i>
+        <select id="select" #select>
+          <option *ngFor="let client of clients" [value]="client._id">
+            {{ client.name + ' ' + client.surname }}, тел.: {{ client.phone }}
           </option>
         </select>
+        <label for="select">Клиенты из базы</label>
       </div>
       <div class="input-field col s12 w-100">
         <i class="material-icons prefix">mode_edit</i>

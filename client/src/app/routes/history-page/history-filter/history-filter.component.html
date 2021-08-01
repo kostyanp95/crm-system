@@ -20,7 +20,11 @@
     </div>
   </div>
 
-  <button class="btn waves-effect wavers-light btn-small" (click)="submitFilter()" [disabled]="!isValid">
+  <button class="btn waves-effect wavers-light btn-small mr-2" (click)="submitFilter()" [disabled]="!isValid">
     Поиск
+  </button>
+
+  <button class="btn waves-effect wavers-light btn-small" (click)="resetFilters()">
+    Сбросить фильтры
   </button>
 </div>

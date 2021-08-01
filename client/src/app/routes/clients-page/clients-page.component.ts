@@ -88,6 +88,7 @@ export class ClientsPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openAddClientModal(): void {
     this.addClientModal.open()
+    this.form.markAllAsTouched()
   }
 
   ngOnDestroy(): void {

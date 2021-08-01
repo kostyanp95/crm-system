@@ -24,9 +24,11 @@ module.exports.getAll = async function (req, res) {
         query.order = +req.query.order
     }
 
-    if (req.query.clientId) {
-        query._id = req.query.clientId
+    if (req.query.name) {
+        query.name = req.query.name
     }
+
+    console.log(query)
 
     try {
 

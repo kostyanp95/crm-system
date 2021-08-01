@@ -15,6 +15,10 @@ export class OrdersService {
     return this.http.post<Order>('/api/order', order)
   }
 
+  update(order: Order): Observable<Order> {
+    return this.http.patch<Order>(`/api/order/${order._id}`, order)
+  }
+
   getList(params: any = {}): Observable<Array<Order>> {
     return this.http.get<Array<Order>>('api/order', {
       params: new HttpParams({

@@ -25,6 +25,7 @@ export class ClientsFilterComponent implements OnInit, OnDestroy, AfterViewInit 
   dateRegister: MaterializeDatepicker
   form: FormGroup
   isValid = true
+  filter: Filter;
 
   constructor(private fb: FormBuilder) {
   }
@@ -42,20 +43,21 @@ export class ClientsFilterComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   submitFilter(): void {
-    const filter: Filter = this.form.getRawValue()
-    const result: Filter = {}
-
+    this.filter = this.form.getRawValue()
     if (this.dateRegister.date) {
-      filter.start = this.dateRegister.date
+      this.filter.start = this.dateRegister.date
     }
 
-    Object.values(filter).forEach(key => {
-      if (key !== null) {
-        filter[key] = key
-      }
-    });
+    const removeEmpty = (obj) =>
+      Object.entries(obj).forEach(([key, val]) => {
+        if (val == null) {
+          delete obj[key]
+        }
+      })
 
-    this.applyFilter.emit(result)
+    removeEmpty(this.filter)
+
+    this.applyFilter.emit(this.filter)
   }
 
   ngAfterViewInit(): void {
@@ -64,5 +66,11 @@ export class ClientsFilterComponent implements OnInit, OnDestroy, AfterViewInit 
 
   ngOnDestroy(): void {
     this.dateRegister.destroy()
+  }
+
+  resetFilters(): void {
+    this.form.reset()
+    this.filter = {}
+    this.applyFilter.emit(this.filter)
   }
 }

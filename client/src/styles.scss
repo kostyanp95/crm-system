@@ -35,3 +35,7 @@ h4 {
 .content {
   padding: 0 15px;
 }
+
+span.badge.new:after {
+  content: none;
+}

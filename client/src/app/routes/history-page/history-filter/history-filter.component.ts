@@ -18,23 +18,28 @@ export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
   order: number
 
   isValid = true
+  filter: Filter = {}
 
   submitFilter(): void {
-    const filter: Filter = {}
 
     if (this.order) {
-      filter.order = this.order
+      this.filter.order = this.order
     }
 
     if (this.start.date) {
-      filter.start = this.start.date
+      this.filter.start = this.start.date
     }
 
     if (this.end.date) {
-      filter.end = this.end.date
+      this.filter.end = this.end.date
     }
 
-    this.onFilter.emit(filter)
+    this.onFilter.emit(this.filter)
+  }
+
+  resetFilters(): void {
+    this.filter = {}
+    this.onFilter.emit(this.filter)
   }
 
   ngAfterViewInit(): void {

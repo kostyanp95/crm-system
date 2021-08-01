@@ -1,5 +1,5 @@
 export interface Filter {
-  start?: Date
+  start?: Date | string
   end?: Date
   order?: number
 }

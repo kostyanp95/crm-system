@@ -107,3 +107,19 @@ module.exports.create = async function (req, res) {
         errorHandler(res, e)
     }
 }
+
+module.exports.update = async function (req, res) {
+    try {
+        console.log('update order: ', req.body)
+        console.log('params: ', req.params)
+        const order = await Order.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: req.body},
+            {new: true}
+        )
+
+        res.status(201).json(order)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}

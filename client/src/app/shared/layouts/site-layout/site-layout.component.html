@@ -5,6 +5,15 @@
   <h4>CRM</h4>
 
   <ul class="right">
+<!--    <li><div class="user-view" style="height: 176px;">-->
+<!--      <div class="background">-->
+<!--        <img src="images/office.jpg">-->
+<!--      </div>-->
+<!--      <a href="#user"><img class="circle" src="images/yuna.jpg"></a>-->
+<!--      <a href="#name"><span class="white-text name">John Doe</span></a>-->
+<!--      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>-->
+<!--    </div></li>-->
+    <li><div class="divider"></div></li>
     <li *ngFor="let link of listLinks" class="bold" routerLinkActive="active">
       <a [routerLink]="[link.url]" class="waves-effect waves-orange">
         {{ link.name }}

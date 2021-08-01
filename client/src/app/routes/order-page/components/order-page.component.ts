@@ -20,6 +20,7 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('modal') modalRef: ElementRef
   @ViewChild('select') selectRef: ElementRef
   modal: MaterializeInstance
+  select: MaterializeInstance
   isRoot: boolean
   pending = false
   subscription: Subscription
@@ -75,6 +76,7 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   open(): void {
     this.modal.open()
+    this.select = MaterializeService.initSelect(this.selectRef)
   }
 
   submit(): void {
@@ -86,12 +88,10 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
       client = this.form.getRawValue()
       order.client = client
       order.status = OrderStatus.TAKE
-      console.log('new client: ', client)
     } else {
       order['clientId'] = this.selectedClientId
       order['comment'] = this.comment
       order.status = OrderStatus.TAKE
-      console.log('clientId: ', this.selectedClientId)
     }
 
     order.list = this.modalOrderService.list.map(item => {
@@ -122,13 +122,14 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.modal.destroy()
-    if (this.subscription) {
-      this.subscription.unsubscribe()
-    }
+    this.subscription?.unsubscribe()
   }
 
   updateFields(): void {
     this.form.markAllAsTouched()
-    setTimeout(() => MaterializeService.updateTextFields(), .1)
+    setTimeout(() => {
+      MaterializeService.updateTextFields()
+      this.select = MaterializeService.initSelect(this.selectRef)
+    }, .1)
   }
 }

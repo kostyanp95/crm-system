@@ -32,8 +32,8 @@ export class MaterializeService {
     return M.Modal.init(modalRef.nativeElement)
   }
 
-  static initSelect(modalRef: ElementRef): MaterializeInstance {
-    return M.FormSelect.init(modalRef.nativeElement)
+  static initSelect(selectRef: ElementRef): MaterializeInstance {
+    return M.FormSelect.init(selectRef.nativeElement)
   }
 
   static initTooltip(modalRef: ElementRef): MaterializeInstance {
