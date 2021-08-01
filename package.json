@@ -8,13 +8,12 @@
     "npm": "6.14.11"
   },
   "scripts": {
-    "dev": "concurrently \"npm run server-dev\" \"npm run client-dev\"",
-    "prod": "concurrently \"npm run server\" \"npm run client\"",
     "start": "node index.js",
-    "server": "set NODE_ENV=production && nodemon index",
+    "dev": "concurrently \"npm run server-dev\" \"npm run client-proxy-dev\"",
     "server-dev": "set NODE_ENV=development && nodemon index",
-    "client": "npm run start --prefix client",
-    "client-dev": "npm run start-dev --prefix client",
+    "server-prod": "set NODE_ENV=production && nodemon index",
+    "client-proxy-dev": "npm run start-proxy-dev --prefix client",
+    "client-proxy-prod": "npm run start-proxy-prod --prefix client",
     "client-install": "npm i --prefix client",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
