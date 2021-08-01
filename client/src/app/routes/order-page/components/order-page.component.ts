@@ -26,8 +26,9 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
   form: FormGroup
   isNewClient = false
   clients: Array<Client> = []
-  selectedClientId: string = null
-  selectedClient: Client
+  selectedClientId = ''
+  comment: string
+
 
   constructor(private router: Router,
               private fb: FormBuilder,
@@ -58,7 +59,7 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
   initClientForm(): void {
     this.form = this.fb.group({
       name: [null, Validators.required],
-      surname: [null, Validators.required],
+      surname: null,
       phone: [null, Validators.required],
       comment: null
     })
@@ -78,7 +79,6 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   submit(): void {
     this.pending = true
-    let clientId: string
     let client: Client
     const order: Order = {} as Order
 
@@ -87,9 +87,10 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
       order.client = client
       console.log('new client: ', client)
     } else {
-      clientId = this.selectedClientId
-      order['clientId'] = clientId
-      console.log('clientId: ', clientId)
+
+      order['clientId'] = this.selectedClientId
+      order['comment'] = this.comment
+      console.log('clientId: ', this.selectedClientId)
     }
 
     order.list = this.modalOrderService.list.map(item => {
@@ -123,5 +124,10 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe()
     }
+  }
+
+  updateFields(): void {
+    this.form.markAllAsTouched()
+    setTimeout(() => MaterializeService.updateTextFields(), .1)
   }
 }

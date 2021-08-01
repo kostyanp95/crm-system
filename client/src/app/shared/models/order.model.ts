@@ -7,6 +7,7 @@ export interface Order {
   list: Array<OrderPosition>
   user?: User
   client?: Client
+  comment?: string
   _id?: string
 }
 

@@ -87,6 +87,7 @@ module.exports.create = async function (req, res) {
             list: req.body.list,
             user: req.user._id,
             client: clientId || idCreatedClient,
+            comment: req.body?.comment,
             order: maxOrder + 1
         }).save()
 

@@ -5,13 +5,12 @@
       <h4 *ngIf="isRoot">
         Заказ
       </h4>
-      <div *ngIf="!isRoot">
-        <h4 routerLink="/order">
-          Заказ
-          <i class="material-icons">keyboard_arrow_right</i>
-          Добавить продукцию
-        </h4>
-      </div>
+
+      <h4 *ngIf="!isRoot">
+        <a routerLink="/order">Заказ</a>
+        <i class="material-icons">keyboard_arrow_right</i>
+        Добавить продукцию
+      </h4>
 
     </div>
 
@@ -61,7 +60,7 @@
     </div>
 
     <label>
-      <input type="checkbox" checked="checked" [(ngModel)]="isNewClient">
+      <input type="checkbox" checked="checked" [(ngModel)]="isNewClient" (click)="updateFields()">
       <span>Новый клиент</span>
     </label>
 
@@ -81,8 +80,8 @@
       </div>
       <div class="input-field col s12 w-100">
         <i class="material-icons prefix">mode_edit</i>
-        <textarea id="textarea2" class="materialize-textarea" formControlName="comment"></textarea>
-        <label for="textarea2">Комментарий</label>
+        <textarea id="textarea2" class="materialize-textarea" [(ngModel)]="comment"></textarea>
+        <label for="textarea2">Комментарий к заказу</label>
       </div>
     </div>
 
@@ -96,8 +95,15 @@
         <div>
           <div class="input-field col s12 w-100">
             <i class="material-icons prefix">account_circle</i>
-            <input id="name" type="text" class="validate" formControlName="name">
+            <input id="name" type="text" class="validate" formControlName="name"
+                   [class.invalid]="form.get('name').invalid && form.get('name').touched">
             <label for="name">Имя</label>
+            <span *ngIf="form.get('name').invalid && form.get('name').touched"
+                  class="helper-text red-text">
+            <span *ngIf="form.get('name').hasError('required')">
+              Имя обязательно
+            </span>
+          </span>
           </div>
           <div class="input-field col s12 w-100">
             <i class="material-icons prefix">account_circle</i>
@@ -106,13 +112,20 @@
           </div>
           <div class="input-field col s12 w-100">
             <i class="material-icons prefix">phone</i>
-            <input id="tel" type="tel" formControlName="phone">
+            <input id="tel" type="tel" formControlName="phone"
+                   [class.invalid]="form.get('phone').invalid && form.get('phone').touched">
             <label for="tel">Телефон</label>
+            <span *ngIf="form.get('phone').invalid && form.get('phone').touched"
+                  class="helper-text red-text">
+              <span *ngIf="form.get('phone').hasError('required')">
+                Имя обязательно
+              </span>
+            </span>
           </div>
           <div class="input-field col s12 w-100">
             <i class="material-icons prefix">mode_edit</i>
             <textarea id="textarea1" class="materialize-textarea" formControlName="comment"></textarea>
-            <label for="textarea1">Комментарий</label>
+            <label for="textarea1">Комментарий к заказу</label>
           </div>
         </div>
       </form>
@@ -120,6 +133,10 @@
   </div>
 
   <div class="modal-footer">
+    {{ modalOrderService.list.length === 0 }}
+    {{ !selectedClientId }}
+    {{ form.invalid }} <br>
+    {{ modalOrderService.list.length === 0 || !selectedClientId && form.invalid }}
     <button class="modal-action waves-effect waves-black btn-flat"
             [disabled]="pending"
             (click)="cancel()">
@@ -127,7 +144,7 @@
     </button>
     <button class="modal-action btn waves-effect"
             (click)="submit()"
-            [disabled]="modalOrderService.list.length === 0 || form.get('name').value || selectedClientId === null || pending">
+            [disabled]="modalOrderService.list.length === 0 || !selectedClientId && form.invalid">
       Подтвердить
     </button>
   </div>

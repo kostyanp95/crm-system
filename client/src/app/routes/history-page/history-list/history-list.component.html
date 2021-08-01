@@ -63,6 +63,9 @@
     <div class="order-summary">
       <p>Общая стоимость <strong>{{ computePrice(selectedOrder) }} руб.</strong></p>
     </div>
+    <div *ngIf="selectedOrder?.comment" class="order-summary d-flex justify-content-start">
+      <p>Комментарий к заказу: {{ selectedOrder?.comment }}</p>
+    </div>
   </div>
   <div class="modal-footer">
     <button class="modal-action waves-effect waves-black btn-flat" (click)="closeModal()">
