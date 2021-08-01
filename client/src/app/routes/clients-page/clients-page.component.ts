@@ -23,7 +23,7 @@ export class ClientsPageComponent implements OnInit, AfterViewInit, OnDestroy {
   limit: number = STEP
   subscription: Subscription
   loading = false
-  reloading = false
+  reloading = true
   noMoreClients = false
   form: FormGroup
 

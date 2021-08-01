@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { Order } from '../../shared/models/order.model';
 import { Filter } from '../../shared/models/filter.model';
 
-const STEP = 10
+const STEP = 5
 
 @Component({
   selector: 'app-history-page',
@@ -20,7 +20,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
   limit: number = STEP
   subscription: Subscription
   loading = false
-  reloading = false
+  reloading = true
   noMoreOrders = false
 
   constructor(private ordersService: OrdersService) {

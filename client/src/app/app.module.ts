@@ -27,6 +27,7 @@ import { AnalyticsPageComponent } from './routes/analytics-page/analytics-page.c
 import { ClientsPageComponent } from './routes/clients-page/clients-page.component';
 import { ClientsListComponent } from './routes/clients-page/clients-list/clients-list.component';
 import { ClientsFilterComponent } from './routes/clients-page/clients-filter/clients-filter.component';
+import { DefaultValuePipe } from './shared/pipes/default-value.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ClientsFilterComponent } from './routes/clients-page/clients-filter/cli
     OrderPositionsComponent,
     ClientsPageComponent,
     ClientsListComponent,
-    ClientsFilterComponent
+    ClientsFilterComponent,
+    DefaultValuePipe
   ],
   imports: [
     BrowserModule,
