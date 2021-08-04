@@ -9,16 +9,15 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "concurrently \"npm run server-dev\" \"npm run client-proxy-dev\"",
-    "server-dev": "set NODE_ENV=development && nodemon index",
-    "server-prod": "set NODE_ENV=production && nodemon index",
+    "start-dev": "concurrently \"npm run server-dev\" \"npm run client-proxy-dev\"",
+    "server-dev": "set NODE_ENV=dev&& nodemon index",
     "client-proxy-dev": "npm run start-proxy-dev --prefix client",
     "client-proxy-prod": "npm run start-proxy-prod --prefix client",
     "client-install": "npm i --prefix client",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "compodoc": "compodoc -p src/tsconfig.compodoc.json",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=true npm run client-install && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=true&&npm run client-install && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
