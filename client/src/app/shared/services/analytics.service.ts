@@ -23,7 +23,7 @@ export class AnalyticsService {
   }
 
   checkService(): void {
-    interval(1000 * 60 * 5)
+    interval(1000 * 60 * 60)
       .pipe(
         tap(() => this.http.get<any>('/api/analytics/analytics/check').subscribe())
       )
