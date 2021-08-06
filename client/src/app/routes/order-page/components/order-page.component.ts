@@ -18,16 +18,13 @@ import { Client } from '../../../shared/models/client.model';
 export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('modal') modalRef: ElementRef
-  // @ViewChild('select') selectRef: ElementRef
-  @ViewChild('autocomplete') autocompleteRef: ElementRef
+  @ViewChild('select') selectRef: ElementRef
   modal: MaterializeInstance
   select: MaterializeInstance
-  autocomplete: MaterializeInstance
   isRoot: boolean
   pending = false
   subscription: Subscription
   form: FormGroup
-  orderForm: FormGroup;
   isNewClient = false
   clients: Array<Client> = []
   selectedClientId = ''
@@ -43,7 +40,6 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.initClientForm()
-    this.initOrderForm()
     this.isRootPath()
     this.getClientsList()
     this.router.events
@@ -63,22 +59,10 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   initClientForm(): void {
     this.form = this.fb.group({
-      orderName: [null, Validators.required],
-      orderQuantity: [null, Validators.required],
-      orderCost: [null, Validators.required],
-      isNewClient: false,
       name: [null, Validators.required],
       surname: null,
       phone: [null, Validators.required],
       comment: null
-    })
-  }
-
-  initOrderForm(): void {
-    this.orderForm = this.fb.group({
-      name: [null, Validators.required],
-      quantity: [null, Validators.required],
-      cost: [null, Validators.required]
     })
   }
 
@@ -92,19 +76,7 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   open(): void {
     this.modal.open()
-    console.log(this.clients)
-
-    const clientsForAutocomplete = {
-      data: {}
-    }
-    this.clients.forEach(client => {
-      const clientNameAndPhone = `${client.name} ${client?.surname}, тел: ${client?.phone}`
-      clientsForAutocomplete.data[clientNameAndPhone] = null
-    })
-    console.log(clientsForAutocomplete)
-
-    // this.select = MaterializeService.initSelect(this.selectRef)
-    this.autocomplete = MaterializeService.initAutocomplete(this.autocompleteRef, clientsForAutocomplete)
+    this.select = MaterializeService.initSelect(this.selectRef)
   }
 
   submit(): void {
@@ -116,16 +88,14 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
       client = this.form.getRawValue()
       order.client = client
       order.status = OrderStatus.TAKE
-      order.list = this.orderForm.getRawValue()
     } else {
       order['clientId'] = this.selectedClientId
       order['comment'] = this.comment
       order.status = OrderStatus.TAKE
-      order.list = this.orderForm.getRawValue()
     }
 
     order.list = this.modalOrderService.list.map(item => {
-      delete item?._id
+      delete item._id
       return item
     })
 
@@ -159,7 +129,7 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.form.markAllAsTouched()
     setTimeout(() => {
       MaterializeService.updateTextFields()
-      // this.select = !this.isNewClient ? MaterializeService.initSelect(this.selectRef) : null
+      this.select = MaterializeService.initSelect(this.selectRef)
     }, .1)
   }
 }

@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node index.js",
     "start-dev": "concurrently \"npm run server-dev\" \"npm run client-proxy-dev\"",
-    "server-dev": "set NODE_ENV=development&& nodemon index",
+    "server-dev": "set NODE_ENV=dev&& nodemon index",
     "client-proxy-dev": "npm run start-proxy-dev --prefix client",
     "client-proxy-prod": "npm run start-proxy-prod --prefix client",
     "client-install": "npm i --prefix client",

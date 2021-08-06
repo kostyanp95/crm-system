@@ -22,14 +22,14 @@
             <td class="d-none d-sm-table-cell">{{ order.date | date:'dd.MM.yyyy HH:mm' | defaultValue }}</td>
             <td class="d-table-cell d-sm-none">{{ order.date | date:'dd.MM.yy' | defaultValue }}</td>
             <td>
-              {{ order.client?.name }} {{ order.client?.surname }}, <br>
-              <a href="tel:{{ order.client?.phone }}">{{ order.client?.phone }}</a>
+              {{ order.client?.name + ' ' + order.client?.surname | defaultValue }}, <br>
+              <a href="tel:{{ order.client.phone }}">{{ order.client.phone }}</a>
             </td>
             <td>{{ computePrice(order) | defaultValue }} ₽</td>
             <td>
               <span class="new badge" *ngIf="order?.status"
-                    [class.grey]="order.status === 'Принят'"
-                    [class.blue]="order.status === 'В работе'"
+                    [class.blue]="order.status === 'Принят'"
+                    [class.red]="order.status === 'В работе'"
                     [class.green]="order.status === 'Завершен'">
                 {{ order.status }}
               </span>
@@ -73,7 +73,7 @@
       </tbody>
     </table>
     <div class="order-summary">
-      <p>Общая стоимость <strong>{{ computePrice(selectedOrder) }} ₽</strong></p>
+      <p>Общая стоимость <strong>{{ computePrice(selectedOrder) }} руб.</strong></p>
     </div>
     <div class="order-summary d-flex justify-content-start p-0">
       <div class="container">

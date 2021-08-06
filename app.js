@@ -17,9 +17,9 @@ const clientRoutes = require('./routes/client')
 
 let mongoDB = ''
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'prod') {
     mongoDB = keys.mongoURI
-} else {
+} else if (process.env.NODE_ENV === 'dev') {
     mongoDB = keys.localMongoURI
 }
 
@@ -52,7 +52,6 @@ app.use((req, res, next) => {
 })
 
 if (process.env.NPM_CONFIG_PRODUCTION) {
-    console.log("STATIC IF PROD", process.env.NPM_CONFIG_PRODUCTION)
     app.use(express.static('client/dist/client'))
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client/dist/client/index.html'))

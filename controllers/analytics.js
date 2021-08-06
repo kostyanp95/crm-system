@@ -75,8 +75,12 @@ module.exports.analytics = async function (req, res) {
     }
 }
 
-module.exports.checkService = function (req, res) {
-    res.status(200).json({serviceStatus: 'I\'m live!'})
+module.exports.checkService = async function (req, res) {
+    try {
+        res.status(200).json({serviceStatus: 'I\'m live!'})
+    } catch (e) {
+        errorHandler(res, e)
+    }
 }
 
 function getOrdersMap(orders = []) {
