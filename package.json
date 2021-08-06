@@ -17,7 +17,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "compodoc": "compodoc -p src/tsconfig.compodoc.json",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=true&&npm run client-install && npm run build --prefix client"
+    "heroku-postbuild": "npm run client-install && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
