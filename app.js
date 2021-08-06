@@ -17,7 +17,7 @@ const clientRoutes = require('./routes/client')
 
 let mongoDB = ''
 
-if (process.env.NODE_ENV === 'prod') {
+if (process.env.NODE_ENV === 'production') {
     mongoDB = keys.mongoURI
 } else {
     mongoDB = keys.localMongoURI
