@@ -17,7 +17,7 @@
           <tbody>
           <tr *ngFor="let position of positions">
             <td>{{ position.name }}</td>
-            <td>{{ position.cost }} руб.</td>
+            <td>{{ position.cost }} ₽</td>
             <td>
               <div class="input-field inline order-position-input">
                 <input type="number" min="1" [(ngModel)]="position.quantity">
