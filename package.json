@@ -8,7 +8,7 @@
     "npm": "6.14.11"
   },
   "scripts": {
-    "start": "set NODE_ENV=prod&& node index.js",
+    "start": "node index.js",
     "start-dev": "concurrently \"npm run server-dev\" \"npm run client-proxy-dev\"",
     "server-dev": "set NODE_ENV=dev&& nodemon index",
     "client-proxy-dev": "npm run start-proxy-dev --prefix client",
