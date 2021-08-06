@@ -52,6 +52,7 @@ app.use((req, res, next) => {
 })
 
 if (process.env.NPM_CONFIG_PRODUCTION) {
+    console.log(process.env.NPM_CONFIG_PRODUCTION)
     app.use(express.static('client/dist/client'))
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client/dist/client/index.html'))
