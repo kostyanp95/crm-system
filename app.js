@@ -15,15 +15,7 @@ const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
 const clientRoutes = require('./routes/client')
 
-let mongoDB = ''
-
-if (process.env.NODE_ENV === 'prod') {
-    mongoDB = keys.mongoURI
-} else if (process.env.NODE_ENV === 'dev') {
-    mongoDB = keys.localMongoURI
-}
-
-mongoose.connect(mongoDB, {
+mongoose.connect(process.env.NODE_ENV === 'production' ? keys.mongoURI : keys.localMongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
@@ -51,7 +43,7 @@ app.use((req, res, next) => {
     req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
 })
 
-if (process.env.NPM_CONFIG_PRODUCTION) {
+if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist/client'))
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client/dist/client/index.html'))

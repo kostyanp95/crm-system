@@ -4,9 +4,9 @@
       Регистрация
     </span>
     <div class="input-field">
-      <input id="name" formControlName="name" type="text"
+      <input formControlName="name" type="text"
              [class.invalid]="form.get('name').invalid && form.get('name').touched">
-      <label for="name">
+      <label>
         Имя:
       </label>
       <span *ngIf="form.get('name').invalid && form.get('name').touched"
@@ -17,9 +17,9 @@
       </span>
     </div>
     <div class="input-field">
-      <input id="surname" formControlName="surname" type="text"
+      <input formControlName="surname" type="text"
              [class.invalid]="form.get('surname').invalid && form.get('surname').touched">
-      <label for="surname">
+      <label>
         Фамилия:
       </label>
       <span *ngIf="form.get('surname').invalid && form.get('surname').touched"
@@ -62,7 +62,7 @@
     </div>
   </div>
   <div class="card-action">
-    <button type="submit" class="modal-action btn waves-effect w-100"
+    <button type="submit" class="modal-action btn waves-effect"
             [disabled]="form.invalid || form.disabled">
       Зарегистрироваться
     </button>

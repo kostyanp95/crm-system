@@ -18,7 +18,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     surname: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(7)]]
   })
-  loading = false
   subscription: Subscription
 
   constructor(private fb: FormBuilder,
@@ -42,16 +41,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.form.disable()
-    this.loading = true
     const user: User = this.form.getRawValue()
     this.subscription = this.authService.login(user)
       .subscribe(
-        () => {
-          this.loading = false
-          this.router.navigate(['/overview'])
-        },
+        () => this.router.navigate(['/overview']),
         error => {
-          this.loading = false
           MaterializeService.toast(error.error.message)
           this.form.enable()
         }

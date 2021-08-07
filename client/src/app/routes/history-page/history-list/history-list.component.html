@@ -75,7 +75,7 @@
     <div class="order-summary">
       <p>Общая стоимость <strong>{{ computePrice(selectedOrder) }} руб.</strong></p>
     </div>
-    <div class="order-summary d-flex justify-content-start p-0">
+    <div class="order-summary d-flex justify-content-start">
       <div class="container">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row w-100">
           <div class="input-field col-12 p-0">
@@ -102,7 +102,7 @@
             (click)="closeModal()">
       Закрыть
     </button>
-    <button class="d-flex modal-action waves-effect waves-black btn"
+    <button class="modal-action waves-effect waves-black btn-small"
             type="submit"
             [disabled]="form?.pristine"
             (click)="onSubmit()">

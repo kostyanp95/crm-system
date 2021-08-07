@@ -1,17 +1,11 @@
 <div class="page-title">
-  <div class="row justify-content-between align-items-center w-100">
-    <div class="col-auto">
-      <h4>Заказы</h4>
-    </div>
-      <div class="col-auto  ml-auto">
-      <button class="btn btn-small"
-              [class.active]="isFilterVisible"
-              [class.red]="isFiltered()"
-              (click)="isFilterVisible = !isFilterVisible">
-        <i class="material-icons">search</i>
-      </button>
-    </div>
-  </div>
+  <h4>Заказы</h4>
+  <button class="btn btn-small"
+          [class.active]="isFilterVisible"
+          [class.red]="isFiltered()"
+          (click)="isFilterVisible = !isFilterVisible">
+    <i class="material-icons">search</i>
+  </button>
 </div>
 
 <app-history-filter *ngIf="isFilterVisible"

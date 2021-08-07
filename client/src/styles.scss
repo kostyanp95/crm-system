@@ -39,14 +39,3 @@ h4 {
 span.badge.new:after {
   content: none;
 }
-
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-}
-
-@media only screen and (max-width: 992px) {
-  .modal {
-    width: 95%;
-  }
-}
