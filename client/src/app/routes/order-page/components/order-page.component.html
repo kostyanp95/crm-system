@@ -3,21 +3,20 @@
     <div class="col-12 col-md-auto">
 
       <h4 *ngIf="isRoot">
-        Заказ
+        Новый заказ
       </h4>
 
       <h4 *ngIf="!isRoot">
         <a routerLink="/order">Заказ</a>
         <i class="material-icons">keyboard_arrow_right</i>
-        Добавить продукцию
+        Добавить в заказ
       </h4>
 
     </div>
 
     <div class="col-12 col-md-auto ml-md-auto">
       <button class="waves-effect btn grey darken-1 mt-4 mt-md-0"
-              (click)="open()"
-              [disabled]="modalOrderService.list.length === 0">
+              (click)="open()">
         Создать заказ
       </button>
     </div>
@@ -29,11 +28,12 @@
 
 <div #modal class="modal modal-fixed-footer">
   <div class="modal-content">
-    <h4 class="mb1">Ваш заказ</h4>
+    <h4 class="mb1">Новый заказ</h4>
     <table class="highlight">
       <thead>
       <tr>
-        <th>Название</th>
+        <th class="d-none d-sm-table-cell">Название заказа</th>
+        <th class="d-table-cell d-sm-none">Заказ</th>
         <th class="d-none d-sm-table-cell">Количество</th>
         <th class="d-table-cell d-sm-none">Кол-во</th>
         <th>Цена</th>
@@ -42,42 +42,68 @@
       </thead>
 
       <tbody>
-      <tr *ngFor="let item of modalOrderService.list">
-        <td>{{ item.name }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.cost }}</td>
+      <tr *ngFor="let order of modalOrderService.list">
         <td>
-          <i class="material-icons pointer"
-             (click)="removePosition(item)">delete</i>
+          <div class="input-field inline order-position-input" style="margin-bottom: -12px;">
+            <textarea class="materialize-textarea" [(ngModel)]="order.name">
+            </textarea>
+            <span *ngIf="order.name.length < 5" class="helper-text red-text">
+                Введите название заказа
+            </span>
+          </div>
+        </td>
+        <td>
+          <div class="input-field inline order-position-input">
+            <input type="text" [(ngModel)]="order.quantity">
+            <span *ngIf="order.quantity === 0" class="helper-text red-text">
+                Введите количество
+            </span>
+          </div>
+        </td>
+        <td>
+          <div class="input-field inline order-position-input">
+            <input type="text" [(ngModel)]="order.cost">
+            <span *ngIf="!order.cost" class="helper-text red-text">
+                Введите цену заказа
+            </span>
+          </div>
+        </td>
+        <td>
+          <i class="material-icons pointer" (click)="removePosition(order)">delete</i>
         </td>
       </tr>
       </tbody>
     </table>
     <div class="order-summary">
       <p>
-        Общая стоимость <strong>{{ modalOrderService.price }} руб.</strong>
+        Общая стоимость <strong>{{ modalOrderService.price }} ₽</strong>
       </p>
     </div>
 
+    <div class="order-summary client">
+      <p>
+        Выберите клиента или создайте нового:
+      </p>
+    </div>
     <label>
-      <input type="checkbox" checked="checked" [(ngModel)]="isNewClient" (click)="updateFields()">
+      <input class="filled-in" type="checkbox" checked="checked" [(ngModel)]="isNewClient" (click)="updateFields()">
       <span>Новый клиент</span>
     </label>
 
     <div class="old-client" *ngIf="!isNewClient">
-      <div class="order-summary client">
-        <p>
-          Выберите клиента:
-        </p>
-      </div>
-      <div class="input-field col s12 w-75">
-        <i class="material-icons prefix">account_circle</i>
-        <select id="select" #select>
+      <div class="input-field col s12 w-100">
+        <i class="material-icons prefix">account_box</i>
+        <select id="select" #select [(ngModel)]="selectedClientId">
           <option *ngFor="let client of clients" [value]="client._id">
             {{ client.name + ' ' + client.surname }}, тел.: {{ client.phone }}
           </option>
         </select>
         <label for="select">Клиенты из базы</label>
+      </div>
+      <div class="input-field col s12 w-100">
+        <i class="material-icons prefix">date_range</i>
+        <input id="registrationDate" type="text" #dateRegister>
+        <label for="registrationDate">Дата регистрации</label>
       </div>
       <div class="input-field col s12 w-100">
         <i class="material-icons prefix">mode_edit</i>
@@ -96,7 +122,7 @@
         <div>
           <div class="input-field col s12 w-100">
             <i class="material-icons prefix">account_circle</i>
-            <input id="name" type="text" class="validate" formControlName="name"
+            <input id="name" type="text" formControlName="name"
                    [class.invalid]="form.get('name').invalid && form.get('name').touched">
             <label for="name">Имя</label>
             <span *ngIf="form.get('name').invalid && form.get('name').touched"
@@ -119,10 +145,15 @@
             <span *ngIf="form.get('phone').invalid && form.get('phone').touched"
                   class="helper-text red-text">
               <span *ngIf="form.get('phone').hasError('required')">
-                Имя обязательно
+                Лучше указать номер телефона
               </span>
             </span>
           </div>
+<!--          <div class="input-field col s12 w-100">-->
+<!--            <i class="material-icons prefix">date_range</i>-->
+<!--            <input id="deadline" type="text" #deadline class="w-100">-->
+<!--            <label for="deadline">Сделать к</label>-->
+<!--          </div>-->
           <div class="input-field col s12 w-100">
             <i class="material-icons prefix">mode_edit</i>
             <textarea id="textarea1" class="materialize-textarea" formControlName="comment"></textarea>
@@ -134,14 +165,14 @@
   </div>
 
   <div class="modal-footer">
-    <button class="modal-action waves-effect waves-black btn-flat"
+    <button class="modal-action waves-effect waves-black btn-flat" type="button"
             [disabled]="pending"
             (click)="cancel()">
       Отмена
     </button>
-    <button class="modal-action btn waves-effect"
+    <button class="modal-action btn waves-effect" type="submit"
             (click)="submit()"
-            [disabled]="modalOrderService.list.length === 0 || !selectedClientId && form.invalid">
+            [disabled]="pending || modalOrderService.list.length === 0 || !selectedClientId && form.invalid">
       Подтвердить
     </button>
   </div>

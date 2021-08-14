@@ -36,6 +36,10 @@ export class MaterializeService {
     return M.FormSelect.init(selectRef.nativeElement)
   }
 
+  static initAutocomplete(autocomplete: ElementRef, options: object): MaterializeInstance {
+    return M.Autocomplete.init(autocomplete.nativeElement, options)
+  }
+
   static initTooltip(modalRef: ElementRef): MaterializeInstance {
     return M.Tooltip.init(modalRef.nativeElement)
   }
@@ -44,6 +48,22 @@ export class MaterializeService {
     return M.Datepicker.init(ref.nativeElement, {
       format: 'dd.mm.yyyy',
       showClearButton: true,
+      i18n: {
+        months: [
+          'Февраль',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'Август',
+          'September',
+          'October',
+          'November',
+          'December'
+        ]
+      },
       onClose
     })
   }

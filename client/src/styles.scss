@@ -39,3 +39,17 @@ h4 {
 span.badge.new:after {
   content: none;
 }
+
+.datepicker-modal {
+  height: 100% !important;
+
+  .datepicker-container {
+    height: 100% !important;
+
+    .datepicker-calendar-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+}

@@ -3,10 +3,12 @@ import { User } from './interfaces';
 
 export interface Order {
   date?: Date
+  deadline?: Date
   order?: number
   list: Array<OrderPosition>
   user?: User
   client?: Client
+  clientId?: string
   comment?: string
   status: OrderStatus
   _id?: string

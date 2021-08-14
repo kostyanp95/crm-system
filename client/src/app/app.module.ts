@@ -28,6 +28,10 @@ import { ClientsPageComponent } from './routes/clients-page/clients-page.compone
 import { ClientsListComponent } from './routes/clients-page/clients-list/clients-list.component';
 import { ClientsFilterComponent } from './routes/clients-page/clients-filter/clients-filter.component';
 import { DefaultValuePipe } from './shared/pipes/default-value.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { DefaultValuePipe } from './shared/pipes/default-value.pipe';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    BrowserAnimationsModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatInputModule
   ],
   providers: [
     {

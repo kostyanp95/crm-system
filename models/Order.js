@@ -6,6 +6,9 @@ const orderSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    deadline: {
+        type: Date
+    },
     order: {
         type: Number,
         required: true,

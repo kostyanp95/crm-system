@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { MaterializeInstance, MaterializeService } from '../../../shared/services/materialize.service';
+import {
+  MaterializeDatepicker,
+  MaterializeInstance,
+  MaterializeService
+} from '../../../shared/services/materialize.service';
 import { ModalOrderService } from '../services/modal-order.service';
 import { Order, OrderPosition, OrderStatus } from '../../../shared/models/order.model';
 import { OrdersService } from '../../../shared/services/orders.service';
@@ -19,8 +23,12 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('modal') modalRef: ElementRef
   @ViewChild('select') selectRef: ElementRef
+  @ViewChild('dateRegister') dateRegisterRef: ElementRef
+  order: Order = {} as Order
+  client: Client
   modal: MaterializeInstance
   select: MaterializeInstance
+  dateRegister: MaterializeDatepicker
   isRoot: boolean
   pending = false
   subscription: Subscription
@@ -77,32 +85,33 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
   open(): void {
     this.modal.open()
     this.select = MaterializeService.initSelect(this.selectRef)
+    this.dateRegister = MaterializeService.iniDatepicker(this.dateRegisterRef, null)
   }
 
   submit(): void {
     this.pending = true
-    let client: Client
-    const order: Order = {} as Order
 
     if (this.isNewClient) {
-      client = this.form.getRawValue()
-      order.client = client
-      order.status = OrderStatus.TAKE
+      this.client = this.form.getRawValue()
+      this.order.client = this.client
+      this.order.status = OrderStatus.TAKE
+      this.order.deadline = this.dateRegister.date
     } else {
-      order['clientId'] = this.selectedClientId
-      order['comment'] = this.comment
-      order.status = OrderStatus.TAKE
+      this.order.clientId = this.selectedClientId
+      this.order.comment = this.comment
+      this.order.status = OrderStatus.TAKE
+      this.order.deadline = this.dateRegister.date
     }
 
-    order.list = this.modalOrderService.list.map(item => {
+    this.order.list = this.modalOrderService.list.map(item => {
       delete item._id
       return item
     })
 
-    this.subscription = this.ordersService.create(order)
+    this.subscription = this.ordersService.create(this.order)
       .subscribe(
         (newOrder) => {
-          MaterializeService.toast(`Заказ №${newOrder.order['order']} был добавлен.`)
+          MaterializeService.toast(`Заказ №${newOrder.order['order']} был создан.`)
         },
         error => MaterializeService.toast(error.error.message),
         () => {
@@ -117,7 +126,9 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   removePosition(orderPosition: OrderPosition): void {
-    this.modalOrderService.remove(orderPosition)
+    if (this.modalOrderService.list.length !== 1) {
+      this.modalOrderService.remove(orderPosition)
+    }
   }
 
   ngOnDestroy(): void {
@@ -129,7 +140,8 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.form.markAllAsTouched()
     setTimeout(() => {
       MaterializeService.updateTextFields()
-      this.select = MaterializeService.initSelect(this.selectRef)
+      this.select = !this.isNewClient ? MaterializeService.initSelect(this.selectRef) : null
+      this.dateRegister = !this.isNewClient ? MaterializeService.iniDatepicker(this.dateRegisterRef, null) : null
     }, .1)
   }
 }

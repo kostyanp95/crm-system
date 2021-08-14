@@ -12,7 +12,7 @@
     <div class="card light-blue lighten-2 white-text">
       <div class="card-content">
         <span class="card-title">Выручка:</span>
-        <h3>{{ data.gain.yesterday }} руб.</h3>
+        <h3>{{ data.gain.yesterday }} ₽</h3>
         <h3 class="m0 mb1"
             [class.green-text]="data.gain.isHigher"
             [class.red-text]="!data.gain.isHigher">
@@ -25,7 +25,7 @@
           Выручка вашего бизнеса вчера на
           {{ data.gain.percent }}%
           {{ data.gain.isHigher ? 'выше' : 'ниже' }}
-          среднего: {{ data.gain.compare }} руб. в день
+          среднего: {{ data.gain.compare }} ₽ в день
         </p>
       </div>
     </div>

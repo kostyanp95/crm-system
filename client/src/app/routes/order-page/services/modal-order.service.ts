@@ -5,7 +5,13 @@ import { OrderPosition } from '../../../shared/models/order.model';
 @Injectable()
 export class ModalOrderService {
 
-  list: Array<OrderPosition> = []
+  list: Array<OrderPosition> = [
+    {
+      name: 'Название',
+      quantity: 1,
+      cost: 0
+    }
+  ]
   price = 0
 
   constructor() {
