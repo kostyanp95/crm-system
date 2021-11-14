@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Position } from '../../../../shared/models/position.model';
 import { ModalOrderService } from '../../services/modal-order.service';
 import { MaterializeService } from '../../../../shared/services/materialize.service';
+import { OrderPosition } from '../../../../shared/models/order.model';
 
 @Component({
   selector: 'app-order-positions',
@@ -39,7 +40,7 @@ export class OrderPositionsComponent implements OnInit {
       )
   }
 
-  addToOrder(position: Position) {
+  addToOrder(position: OrderPosition) {
     this.orderService.add(position)
     MaterializeService.toast(`Добавлено x${position.quantity} ${position.name}`)
   }

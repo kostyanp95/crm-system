@@ -52,7 +52,9 @@
   "devDependencies": {
     "concurrently": "^6.0.2",
     "conventional-changelog-cli": "^2.1.1",
-    "husky": "^6.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/cli": "^11.0.0",
+    "husky": "^4.3.8",
     "nodemon": "^2.0.7",
     "@compodoc/compodoc": "^1.1.11"
   },

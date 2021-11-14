@@ -42,14 +42,14 @@
 </div>
 
 <div class="modal" #clientModal>
-  <ng-container
-    [ngTemplateOutlet]="editClientModal ? editModal : ordersClientModal ? ordersModal : null"></ng-container>
+  <ng-container [ngTemplateOutlet]="editClientModal ? editModal : ordersClientModal ? ordersModal : null">
+  </ng-container>
 </div>
 
 <ng-template #editModal>
   <div class="modal-content" *ngIf="editClientModal">
     <h4>Редактирование клиента</h4>
-    <form [formGroup]="form" class="mt-4">
+    <form [formGroup]="clientForm" class="mt-4">
       <div>
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
@@ -84,7 +84,7 @@
       Закрыть
     </button>
     <button class="modal-action waves-effect waves-black btn-small" (click)="editClient()"
-            [disabled]="form?.pristine || form?.invalid || form?.disabled">
+            [disabled]="clientForm?.pristine || clientForm?.invalid || clientForm?.disabled">
       Редактировать
     </button>
   </div>
@@ -107,7 +107,11 @@
       <tbody>
       <ng-container *ngFor="let order of selectedOrders">
         <tr *ngIf="order">
-          <td>{{ order?.order }}</td>
+          <td>
+            <a class="client cursor-pointer" (click)="openClientOrder(order)">
+              {{ order?.order }}
+            </a>
+          </td>
           <td>{{ order?.date | date:'dd.MM.yyy HH:mm' }}</td>
           <td>{{ computeOrderPrice(order) }} ₽</td>
         </tr>
@@ -124,3 +128,68 @@
     </button>
   </div>
 </ng-template>
+
+<div id="order-list" class="modal modal-fixed-footer" #orderModal>
+  <div class="modal-content" *ngIf="selectedOrder">
+    <h4 class="mb1">Заказ №
+      {{ selectedOrder.order }} <br>
+      Клиент: {{ selectedOrder.client.name + ' ' + selectedOrder.client.surname }}
+    </h4>
+    <table class="highlight">
+      <thead>
+      <tr>
+        <th>Название</th>
+        <th>Количество</th>
+        <th>Цена</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let item of selectedOrder.list">
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.cost }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="order-summary">
+      <p>Общая стоимость <strong>{{ computePrice(selectedOrder) }} ₽</strong></p>
+    </div>
+    <div class="order-summary d-flex justify-content-start">
+      <div class="container">
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="d-flex flex-column w-100">
+
+          <div class="input-field col-12 p-0">
+            <i class="material-icons prefix">mode_edit</i>
+            <textarea id="textarea1" class="materialize-textarea" formControlName="comment"></textarea>
+            <label for="textarea1">Комментарий к заказу:</label>
+          </div>
+
+          <div class="input-field col-auto p-0">
+            <i class="material-icons prefix">assignment_turned_in</i>
+            <select #orderStatus formControlName="status">
+              <option *ngFor="let status of orderStatuses" [value]="status">
+                {{ status }}
+              </option>
+            </select>
+            <label>Статус заказа</label>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="mr-2 modal-action waves-effect waves-black btn-flat"
+            type="button"
+            (click)="closeModal()">
+      Закрыть
+    </button>
+    <button class="modal-action waves-effect waves-black btn-small"
+            type="submit"
+            [disabled]="clientForm?.pristine"
+            (click)="onSubmit()">
+      Сохранить изменения
+    </button>
+  </div>
+</div>

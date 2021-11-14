@@ -13,7 +13,7 @@ export class ClientsService {
 
   getById(clientId: string | Client): Observable<Client> {
     const body = {}
-    if (typeof clientId === 'string' ) {
+    if (typeof clientId === 'string') {
       body['clientId'] = clientId
     } else {
       body['clientId'] = clientId['_id']

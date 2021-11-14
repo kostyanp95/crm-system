@@ -110,8 +110,7 @@ module.exports.create = async function (req, res) {
 
 module.exports.update = async function (req, res) {
     try {
-        console.log('update order: ', req.body)
-        console.log('params: ', req.params)
+
         const order = await Order.findOneAndUpdate(
             {_id: req.params.id},
             {$set: req.body},

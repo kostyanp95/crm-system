@@ -4,6 +4,8 @@ import { MaterializeInstance, MaterializeService } from '../../../shared/service
 import { Client } from '../../../shared/models/client.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientsService } from '../../../shared/services/clients.service';
+import { Subscription } from 'rxjs';
+import { OrdersService } from '../../../shared/services/orders.service';
 
 @Component({
   selector: 'app-clients-list',
@@ -13,17 +15,25 @@ import { ClientsService } from '../../../shared/services/clients.service';
 export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() clients: Array<Client>
   @ViewChild('clientModal') clientModalRef: ElementRef
+  @ViewChild('orderModal') orderModalRef: ElementRef
 
   selectedClient: Client
   selectedOrder: Order
   selectedOrders: Array<Order>
-  form: FormGroup
+  clientForm: FormGroup
+  orderForm: FormGroup
   clientModal: MaterializeInstance
   editClientModal = false
   ordersClientModal = false
+  subscription: Subscription
+  orderModal: MaterializeInstance
+  orderStatuses = ['Принят', 'В работе', 'Завершен']
+  orderStatus: MaterializeInstance
+  @ViewChild('orderStatus') selectRef: ElementRef
 
   constructor(private fb: FormBuilder,
-              private clientsService: ClientsService) {
+              private clientsService: ClientsService,
+              private ordersService: OrdersService) {
   }
 
   ngOnInit(): void {
@@ -31,7 +41,7 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   initClientForm(): void {
-    this.form = this.fb.group({
+    this.clientForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
       lastname: '',
@@ -40,8 +50,16 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
+  initOrderForm(): void {
+    this.orderForm = this.fb.group({
+      comment: this.selectedOrder?.comment,
+      status: this.selectedOrder.status
+    })
+  }
+
   ngAfterViewInit(): void {
     this.clientModal = MaterializeService.initModal(this.clientModalRef)
+    this.orderModal = MaterializeService.initModal(this.orderModalRef)
   }
 
   computeOrderPrice(order: Order): number {
@@ -66,7 +84,7 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.selectedClient = client
     this.initClientForm()
     this.clientModal.open()
-    this.form.patchValue(this.selectedClient)
+    this.clientForm.patchValue(this.selectedClient)
     setTimeout(() => MaterializeService.updateTextFields(), .1)
   }
 
@@ -88,14 +106,47 @@ export class ClientsListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.clientModal.close()
   }
 
+  closeModal(): void {
+    this.orderModal.close()
+  }
+
   ngOnDestroy(): void {
     this.clientModal.destroy()
   }
 
   editClient(): void {
-    const editedClient: Client = this.form.getRawValue()
+    const editedClient: Client = this.clientForm.getRawValue()
     editedClient._id = this.selectedClient._id
     this.clientsService.update(editedClient)
       .subscribe()
+  }
+
+  openClientOrder(order: Order): void {
+    this.selectedOrder = order
+    order.client = this.selectedClient
+    this.orderModal.open()
+    this.initOrderForm()
+    setTimeout(() => {
+      this.orderStatus = MaterializeService.initSelect(this.selectRef)
+      MaterializeService.updateTextFields()
+    }, .1)
+  }
+
+  onSubmit(): void {
+    const formData = this.clientForm.getRawValue()
+    const updatedOrder = Object.assign(this.selectedOrder, formData)
+    this.subscription = this.ordersService.update(updatedOrder)
+      .subscribe(() => {
+          MaterializeService.toast(`Информация о заказе №${updatedOrder.order} обновлена!`)
+          this.orderModal.close()
+        },
+        error => MaterializeService.toast(error)
+      )
+  }
+
+  computePrice(order: Order): number {
+    return order.list.reduce((total, item) => {
+      return total += item.quantity * item.cost
+    }, 0)
   }
 }

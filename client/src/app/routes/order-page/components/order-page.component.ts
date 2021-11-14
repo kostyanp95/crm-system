@@ -37,6 +37,7 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
   clients: Array<Client> = []
   selectedClientId = ''
   comment: string
+  totalOrderPrice: number;
 
 
   constructor(private router: Router,
@@ -143,5 +144,18 @@ export class OrderPageComponent implements OnInit, AfterViewInit, OnDestroy {
       this.select = !this.isNewClient ? MaterializeService.initSelect(this.selectRef) : null
       this.dateRegister = !this.isNewClient ? MaterializeService.iniDatepicker(this.dateRegisterRef, null) : null
     }, .1)
+  }
+
+  addPosition(): void {
+    this.modalOrderService.list.push({
+      name: '',
+      quantity: 1,
+      cost: 0
+    })
+  }
+
+  computeTotalPrice(): void {
+    this.totalOrderPrice = this.modalOrderService.list.reduce((total, item) => total += item.quantity * item.cost, 0)
+    console.log(this.modalOrderService.list)
   }
 }

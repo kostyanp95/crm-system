@@ -1,9 +1,10 @@
 const Client = require('../models/Client')
 const Order = require('../models/Order')
 const errorHandler = require('../utils/errorHandler')
+const User = require("../models/User");
 
 /**
- * Получить всеъ клиентов
+ * Получить всех клиентов
  * @param req
  * @param res
  * @returns {Promise<void>}
@@ -28,8 +29,6 @@ module.exports.getAll = async function (req, res) {
         query.name = req.query.name
     }
 
-    console.log(query)
-
     try {
 
         const clients = await Client
@@ -38,15 +37,16 @@ module.exports.getAll = async function (req, res) {
             .skip(+req.query.offset)
             .limit(+req.query.limit)
 
-        let promise = []
-
-        clients.forEach(client => {
-            promise = client.orders.map(async (order, index) => {
-                client.orders[index] = await Order.findById(order._id)
-            })
+        const user = clients.map(async client => {
+            client.user = await User.findById(client.user)
         })
 
-        await Promise.all(promise)
+        const clientsOrders = clients.map(async client => {
+            client.orders = await Order.find({'client': client._id})
+        })
+
+        await Promise.all(user)
+        await Promise.all(clientsOrders)
 
         res.status(200).json(clients)
 
@@ -94,8 +94,6 @@ module.exports.create = async function (req, res) {
             user: req.user._id,
             order: maxClient + 1
         }).save()
-
-        console.log(client)
 
         res.status(201).json(client)
     } catch (e) {

@@ -32,7 +32,13 @@
     <table class="highlight">
       <thead>
       <tr>
-        <th class="d-none d-sm-table-cell">Название заказа</th>
+        <th class="d-none d-sm-table-cell">
+          Позиция
+          <button class="btn waves-effect wavers-light btn-small mr-3"
+                  (click)="addPosition()">
+            <i class="material-icons">add</i>
+          </button>
+        </th>
         <th class="d-table-cell d-sm-none">Заказ</th>
         <th class="d-none d-sm-table-cell">Количество</th>
         <th class="d-table-cell d-sm-none">Кол-во</th>
@@ -42,53 +48,52 @@
       </thead>
 
       <tbody>
-      <tr *ngFor="let order of modalOrderService.list">
+      <tr *ngFor="let position of modalOrderService.list">
         <td>
           <div class="input-field inline order-position-input" style="margin-bottom: -12px;">
-            <textarea class="materialize-textarea" [(ngModel)]="order.name">
+            <textarea class="materialize-textarea" [(ngModel)]="position.name">
             </textarea>
-            <span *ngIf="order.name.length < 5" class="helper-text red-text">
-                Введите название заказа
+            <span *ngIf="position.name.length < 5" class="helper-text red-text">
+                Введите название
             </span>
           </div>
         </td>
         <td>
           <div class="input-field inline order-position-input">
-            <input type="text" [(ngModel)]="order.quantity">
-            <span *ngIf="order.quantity === 0" class="helper-text red-text">
+            <input type="number" [(ngModel)]="position.quantity" (ngModelChange)="computeTotalPrice()">
+            <span *ngIf="position.quantity === 0" class="helper-text red-text">
                 Введите количество
             </span>
           </div>
         </td>
         <td>
           <div class="input-field inline order-position-input">
-            <input type="text" [(ngModel)]="order.cost">
-            <span *ngIf="!order.cost" class="helper-text red-text">
+            <input type="number" [(ngModel)]="position.cost" (ngModelChange)="computeTotalPrice()">
+            <span *ngIf="!position.cost" class="helper-text red-text">
                 Введите цену заказа
             </span>
           </div>
         </td>
         <td>
-          <i class="material-icons pointer" (click)="removePosition(order)">delete</i>
+          <i class="material-icons pointer" (click)="removePosition(position)">delete</i>
         </td>
       </tr>
       </tbody>
     </table>
     <div class="order-summary">
-      <p>
-        Общая стоимость <strong>{{ modalOrderService.price }} ₽</strong>
+      <p> Общая стоимость
+        <strong>
+          {{ this.modalOrderService.list.length < 2 ? modalOrderService.list[0].cost * modalOrderService.list[0].quantity : totalOrderPrice }}
+          ₽
+        </strong>
       </p>
     </div>
 
     <div class="order-summary client">
       <p>
-        Выберите клиента или создайте нового:
+        Выберите клиента:
       </p>
     </div>
-    <label>
-      <input class="filled-in" type="checkbox" checked="checked" [(ngModel)]="isNewClient" (click)="updateFields()">
-      <span>Новый клиент</span>
-    </label>
 
     <div class="old-client" *ngIf="!isNewClient">
       <div class="input-field col s12 w-100">
@@ -112,56 +117,6 @@
       </div>
     </div>
 
-    <div class="new-client" *ngIf="isNewClient">
-      <div class="order-summary client">
-        <p>
-          Данные клиента:
-        </p>
-      </div>
-      <form [formGroup]="form">
-        <div>
-          <div class="input-field col s12 w-100">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="name" type="text" formControlName="name"
-                   [class.invalid]="form.get('name').invalid && form.get('name').touched">
-            <label for="name">Имя</label>
-            <span *ngIf="form.get('name').invalid && form.get('name').touched"
-                  class="helper-text red-text">
-            <span *ngIf="form.get('name').hasError('required')">
-              Имя обязательно
-            </span>
-          </span>
-          </div>
-          <div class="input-field col s12 w-100">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="surname" type="text" class="validate" formControlName="surname">
-            <label for="surname">Фамилия</label>
-          </div>
-          <div class="input-field col s12 w-100">
-            <i class="material-icons prefix">phone</i>
-            <input id="tel" type="tel" formControlName="phone"
-                   [class.invalid]="form.get('phone').invalid && form.get('phone').touched">
-            <label for="tel">Телефон</label>
-            <span *ngIf="form.get('phone').invalid && form.get('phone').touched"
-                  class="helper-text red-text">
-              <span *ngIf="form.get('phone').hasError('required')">
-                Лучше указать номер телефона
-              </span>
-            </span>
-          </div>
-<!--          <div class="input-field col s12 w-100">-->
-<!--            <i class="material-icons prefix">date_range</i>-->
-<!--            <input id="deadline" type="text" #deadline class="w-100">-->
-<!--            <label for="deadline">Сделать к</label>-->
-<!--          </div>-->
-          <div class="input-field col s12 w-100">
-            <i class="material-icons prefix">mode_edit</i>
-            <textarea id="textarea1" class="materialize-textarea" formControlName="comment"></textarea>
-            <label for="textarea1">Комментарий к заказу</label>
-          </div>
-        </div>
-      </form>
-    </div>
   </div>
 
   <div class="modal-footer">

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Position } from '../../../shared/models/position.model';
 import { OrderPosition } from '../../../shared/models/order.model';
 
 @Injectable()
@@ -7,7 +6,7 @@ export class ModalOrderService {
 
   list: Array<OrderPosition> = [
     {
-      name: 'Название',
+      name: '',
       quantity: 1,
       cost: 0
     }
@@ -17,7 +16,7 @@ export class ModalOrderService {
   constructor() {
   }
 
-  add(position: Position): void {
+  add(position: OrderPosition): void {
     const orderPosition: OrderPosition = Object.assign({}, {
       name: position.name,
       cost: position.cost,
@@ -34,7 +33,6 @@ export class ModalOrderService {
     }
 
     this.computePrice()
-
   }
 
   remove(orderPosition: OrderPosition): void {
@@ -48,10 +46,8 @@ export class ModalOrderService {
     this.price = 0
   }
 
-  private computePrice() {
-    this.price = this.list.reduce((total, item) => {
-      return total += item.quantity * item.cost
-    }, 0)
+  computePrice() {
+    this.price = this.list.reduce((total, item) => total += item.quantity * item.cost, 0)
   }
 
 }
